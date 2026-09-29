@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class OpretFilmTest {
+class FilmTest {
 
     @Test
     void createFilmTest() {
@@ -30,6 +30,18 @@ class OpretFilmTest {
         filmService.createFilm(film);
 
         verify(filmRepo).save(film);
+    }
+
+
+    @Test
+    void getAllFilmsTest() {
+
+        FilmRepo filmRepo = mock(FilmRepo.class);
+        FilmService filmService = new FilmService(filmRepo);
+
+        filmService.getAllFilms();
+
+        verify(filmRepo).findAll();
     }
     
 }
