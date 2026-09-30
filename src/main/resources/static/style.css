@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: black;
+    color: #c7c7c7;
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    border-right: 7px solid red;
+    padding: 25px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar h1 {
+    margin: 0;
+    color: white;
+    font-size: 34px;
+}
+
+.sidebar h1 span {
+    color: red;
+}
+
+.sidebar h3 {
+    margin-top: 8px;
+}
+
+.user h3 {
+    margin-bottom: 2px;
+}
+
+.user p {
+    margin-top: 0;
+}
+
+.user button {
+    width: 175px;
+}
+
+
+/* CONTENT */
+
+.content {
+    padding: 20px 30px;
+    width: 750px;
+}
+
+.content h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.subtitle {
+    margin-top: 5px;
+    margin-bottom: 70px;
+}
+
+
+/* FORM */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 28px;
+    width: 320px;
+}
+
+.form-group label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+input,
+textarea,
+select {
+    background-color: black;
+    border: 3px solid red;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input,
+select {
+    height: 46px;
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+
+/* TO FELTER VED SIDEN AF HINANDEN */
+
+.row {
+    display: flex;
+    gap: 130px;
+}
+
+.small {
+    width: 180px;
+}
+
+
+/* KNAPPER */
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+button {
+    background-color: black;
+    color: #c7c7c7;
+    border: 3px solid red;
+    border-radius: 25px;
+
+    padding: 8px 28px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1c1c1c;
+}
