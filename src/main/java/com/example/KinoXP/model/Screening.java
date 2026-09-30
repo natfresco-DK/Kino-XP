@@ -25,7 +25,7 @@ public class Screening {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
-    protected Screening() {
+    public Screening() {
     }
 
     public Screening(Movie movie, Screen screen, LocalDateTime startTime, LocalDateTime endTime) {
