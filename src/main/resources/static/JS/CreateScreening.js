@@ -16,13 +16,45 @@ async function getJSON(url){
 }
 
 async function loadMovies(){
-    const movies = getJSON("/movies");
+    try{
+    const movies = await getJSON("/movies");
     movies.forEach(movie => {
         const option = document.createElement("option");
         option.value = movie.id;
         option.textContent = movie.title;
         movieSelect.append(option);
-    })
+    })} catch (error){
+        console.error(error)
+        statusMessage.textContent = "Kan ikke hente movies";
+    }
 }
 
+async function loadScreens(){
+    try {
+        const screens = await getJSON("/screens");
+        console.log(screens)
+        screens.forEach(screen => {
+            const option = document.createElement("option");
+            option.value = screen.id;
+            option.textContent = screen.name;
+            screenSelect.append(option);
+        })
+    } catch (error){
+        console.error(error);
+        statusMessage.textContent = "Kan ikke hente sale";
+    }
+}
+
+loadScreens();
 loadMovies();
+
+form.addEventListener("submit", event =>{
+    event.preventDefault();
+    const screenId = screenSelect.value;
+    const movieId = movieSelect.value;
+    const start = startTime.value;
+    const end = endTime.value;
+
+
+
+})
