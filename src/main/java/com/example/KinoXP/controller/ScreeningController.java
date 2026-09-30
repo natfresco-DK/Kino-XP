@@ -27,7 +27,7 @@ public class ScreeningController {
     @PostMapping("/screenings")
     public ResponseEntity<Void> createScreening(
             @RequestBody CreateScreeningRequest request) {
-
+        try{
         Optional<Screening> screening =
                 screeningService.createScreening(request);
 
@@ -38,5 +38,9 @@ public class ScreeningController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();
+
+    }catch(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().build();
     }
+}
 }

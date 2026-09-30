@@ -30,7 +30,11 @@ public class ScreeningService {
 
     public Optional<Screening> createScreening(
             CreateScreeningRequest request) {
-
+        if(!request.endTime().isAfter(request.startTime())) {
+            throw new IllegalArgumentException(
+                    "End time must be after start time"
+            );
+        }
         Optional<Movie> movieResult = movieRepo.findById(request.movieId());
 
         if (movieResult.isEmpty()) {
