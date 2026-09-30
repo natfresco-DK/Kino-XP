@@ -62,10 +62,12 @@ form.addEventListener("submit", async event => {
         startTime: start,
         endTime: end
     };
-
+    if(end <= start){
+        statusMessage.textContent = "Slut tidspunk skal være efter start tidspunkt";
+        return;
+    }
     try {
         statusMessage.textContent = "Opretter forestilling";
-
         const response = await fetch("/screenings", {
             method: "POST",
             headers: {
