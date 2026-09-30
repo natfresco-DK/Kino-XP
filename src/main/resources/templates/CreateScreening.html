@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Screening - KinoXP</title>
+    <link rel="stylesheet" href="/CSS/Stylesheet.css">
 </head>
 <body>
+<div th:replace="~{Fragments/Sidebar :: sidebar}"></div>
+<div class="main-content">
+    <div class="header">
+        <h1>Opret forestilling</h1>
+        <a class="back-link" onclick="history.back()">← Tilbage</a>
+    </div>
 
+    <div class="form-container">
+        <div class="success-message" id="successMessage">
+            ✓ Forestilling oprettet uspishly!
+        </div>
+
+        <form id="screeningForm">
+            <div class="form-group">
+                <label for="movieId">Film</label>
+                <select id="movieId" name="movieId" required>
+                    <option value="">-- Vælg en film --</option>
+                </select>
+                <div class="error-message" id="movieError">Vælg venligst en film</div>
+            </div>
+
+            <div class="form-group">
+                <label for="screenId">Sal</label>
+                <select id="screenId" name="screenId" required>
+                    <option value="">-- Vælg en sal --</option>
+                </select>
+                <div class="error-message" id="screenError">Vælg venligst en sal</div>
+            </div>
+
+            <div class="form-group">
+                <label for="startTime">Start tidspunkt</label>
+                <input type="datetime-local" id="startTime" name="startTime" required>
+                <div class="error-message" id="startTimeError">Vælg venligst et starttidspunkt</div>
+            </div>
+
+            <div class="form-group">
+                <label for="endTime">Slut tidspunkt</label>
+                <input type="datetime-local" id="endTime" name="endTime" required>
+                <div class="error-message" id="endTimeError">Vælg venligst et sluttidspunkt</div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" id="submitBtn">Opret forestilling</button>
+                <button type="button" class="cancel" onclick="document.getElementById('screeningForm').reset(); clearErrors();">Nulstil</button>
+            </div>
+
+            <div class="loading" id="loading">Opretter forestilling...</div>
+        </form>
+    </div>
+</div>
+
+<script src="/JS/CreateScreening.js"></script>
 </body>
 </html>

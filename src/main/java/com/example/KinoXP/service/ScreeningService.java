@@ -3,7 +3,9 @@ package com.example.KinoXP.service;
 import com.example.KinoXP.model.Screening;
 import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ScreeningService {
 
     private final ScreeningRepo ScreeningRepo;
