@@ -55,6 +55,10 @@ form.addEventListener("submit", event =>{
     const start = startTime.value;
     const end = endTime.value;
 
-
-
+    const screening = {
+        movieId: movieId,
+        screenId: screenId,
+        startTime: start,
+        endTime: end
+    };
 })
