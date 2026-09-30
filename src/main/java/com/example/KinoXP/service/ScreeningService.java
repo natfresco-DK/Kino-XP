@@ -31,15 +31,13 @@ public class ScreeningService {
     public Optional<Screening> createScreening(
             CreateScreeningRequest request) {
 
-        Optional<Movie> movieResult =
-                movieRepo.findById(request.movieId());
+        Optional<Movie> movieResult = movieRepo.findById(request.movieId());
 
         if (movieResult.isEmpty()) {
             return Optional.empty();
         }
 
-        Optional<Screen> screenResult =
-                screenRepo.findById(request.screenId());
+        Optional<Screen> screenResult = screenRepo.findById(request.screenId());
 
         if (screenResult.isEmpty()) {
             return Optional.empty();
@@ -55,8 +53,7 @@ public class ScreeningService {
                 request.endTime()
         );
 
-        Screening savedScreening =
-                screeningRepo.save(screening);
+        Screening savedScreening = screeningRepo.save(screening);
 
         return Optional.of(savedScreening);
     }
