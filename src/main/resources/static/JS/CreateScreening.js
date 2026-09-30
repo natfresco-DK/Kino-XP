@@ -48,8 +48,9 @@ async function loadScreens(){
 loadScreens();
 loadMovies();
 
-form.addEventListener("submit", event =>{
+form.addEventListener("submit", async event => {
     event.preventDefault();
+
     const screenId = screenSelect.value;
     const movieId = movieSelect.value;
     const start = startTime.value;
@@ -61,25 +62,29 @@ form.addEventListener("submit", event =>{
         startTime: start,
         endTime: end
     };
-})
 
-try {
-    statusMessage.textContent = "Opretter forestilling";
+    try {
+        statusMessage.textContent = "Opretter forestilling";
 
-    const response = await fetch("/screenings", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(screening)
-    });
-    if (!response.ok) {
-        throw new Error("Requst failed (" + response.status + ")");
+        const response = await fetch("/screenings", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(screening)
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                "Request failed (" + response.status + ")"
+            );
+        }
+
+        statusMessage.textContent = "Forestilling oprettet";
+        form.reset();
+
+    } catch (error) {
+        console.error(error);
+        statusMessage.textContent = "Kunne ikke oprette forestilling";
     }
-    statusMessage.textContent = "Forestilling oprettet";
-    form.reset();
-
-} catch{
-    console.error(error);
-    statusMessage.textContent = "Kunne ikke oprette forestilling";
-}
+});
