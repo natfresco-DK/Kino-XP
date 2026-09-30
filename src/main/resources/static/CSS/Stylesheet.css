@@ -53,21 +53,6 @@ body {
     margin-bottom: 5px;
 }
 
-.logout-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: 2px solid #ff0000;
-    background-color: transparent;
-    color: #ff0000;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.logout-btn:hover {
-    background-color: #ff0000;
-    color: #000;
-}
 
 .main-content {
     flex: 1;
