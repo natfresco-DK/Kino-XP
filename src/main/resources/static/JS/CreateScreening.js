@@ -77,6 +77,8 @@ try {
         throw new Error("Requst failed (" + response.status + ")");
     }
     statusMessage.textContent = "Forestilling oprettet";
+    form.reset();
+
 } catch{
     console.error(error);
     statusMessage.textContent = "Kunne ikke oprette forestilling";
