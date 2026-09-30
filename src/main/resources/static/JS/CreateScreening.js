@@ -63,13 +63,21 @@ form.addEventListener("submit", event =>{
     };
 })
 
-const response = await fetch("/screenings", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(screening)
-});
-if(!response.ok){
-    throw new Error("Requst failed (" + response.status + ")");
+try {
+    statusMessage.textContent = "Opretter forestilling";
+
+    const response = await fetch("/screenings", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(screening)
+    });
+    if (!response.ok) {
+        throw new Error("Requst failed (" + response.status + ")");
+    }
+    statusMessage.textContent = "Forestilling oprettet";
+} catch{
+    console.error(error);
+    statusMessage.textContent = "Kunne ikke oprette forestilling";
 }
