@@ -7,11 +7,9 @@ import com.example.KinoXP.repository.ScreeningRepo;
 public class ScreeningService {
 
     private final ScreeningRepo ScreeningRepo;
-    private final MovieRepo MovieRepo;
 
-    public ScreeningService(ScreeningRepo screeningRepo, MovieRepo movieRepo) {
+    public ScreeningService(ScreeningRepo screeningRepo) {
         this.ScreeningRepo = screeningRepo;
-        this.MovieRepo = movieRepo;
     }
     public Screening createScreening(Screening screening){
         return ScreeningRepo.save(screening);

@@ -1,6 +1,7 @@
 package com.example.KinoXP;
 
 import com.example.KinoXP.model.Movie;
+import com.example.KinoXP.model.Screen;
 import com.example.KinoXP.model.Screening;
 import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.verify;
 public class ScreeningTest {
 
     private Movie movie;
+    private Screen screen;
 
     @BeforeEach
     void setUp() {
@@ -37,14 +39,15 @@ public class ScreeningTest {
                 2000,
                 actors
         );
+        screen = new Screen("Screen 1");
     }
 
     @Test
     void createScreeningTest(){
         ScreeningRepo screeningRepo = mock(ScreeningRepo.class);
-        ScreeningService screeningService = mock(ScreeningService.class);
-        Screening screening = new Screening(movie, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-        verify(screeningService).createScreening(screening);
+        ScreeningService screeningService = new ScreeningService(screeningRepo);
+        Screening screening = new Screening(movie, screen, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
+        screeningService.createScreening(screening);
 
         verify(screeningRepo).save(screening);
 

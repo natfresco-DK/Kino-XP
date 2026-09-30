@@ -13,8 +13,8 @@ public class Screen {
     private String name;
 
     public Screen() {}
-    public Screen(Long id, String name) {
-        this.id = id;
+    public Screen(String name) {
+
         this.name = name;
     }
 

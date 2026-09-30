@@ -13,13 +13,17 @@ public class Screening {
 
     @ManyToOne
     private Movie movie;
+    @ManyToOne
+    private Screen screen;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+
     public Screening(){}
 
-    public Screening(Movie movie, LocalDateTime startTime, LocalDateTime endTime) {
+    public Screening(Movie movie, Screen screen, LocalDateTime startTime, LocalDateTime endTime) {
         this.movie = movie;
+        this.screen = screen;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -40,12 +44,12 @@ public class Screening {
         this.movie = movie;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public Screen getScreen() {
+        return screen;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setScreen(Screen screen) {
+        this.screen = screen;
     }
 
     public LocalDateTime getEndTime() {
@@ -54,5 +58,13 @@ public class Screening {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }
