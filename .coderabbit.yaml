@@ -1,0 +1,40 @@
+reviews:
+  profile: "chill"
+
+  request_changes_workflow: false
+
+  high_level_summary: true
+
+  auto_review:
+    enabled: true
+    drafts: false
+
+  path_instructions:
+    - path: "src/main/java/**"
+      instructions: |
+        This is a short student Fullstack/XP project.
+        Prioritize correctness, functional bugs, Spring Boot misuse,
+        data consistency, validation, null handling and maintainability.
+        Prefer simple fixes over architectural rewrites.
+        Explain why an issue matters.
+        Do not require enterprise patterns when the current story does not need them.
+
+    - path: "src/main/resources/templates/**"
+      instructions: |
+        Focus on functional problems, broken forms, incorrect Thymeleaf bindings,
+        invalid HTML, basic accessibility, and mismatches with controller model attributes.
+        Avoid purely stylistic nitpicks.
+
+    - path: "src/main/resources/static/**/*.js"
+      instructions: |
+        Focus on functional JavaScript bugs, DOM errors, API handling,
+        error handling and understandable code.
+        Avoid style-only comments unless they affect maintainability.
+
+    - path: "src/test/**"
+      instructions: |
+        Check that tests verify meaningful behaviour and relevant edge cases.
+        Do not demand exhaustive test coverage for this short student project.
+
+chat:
+  auto_reply: true
