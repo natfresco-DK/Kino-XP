@@ -1,10 +1,7 @@
 package com.example.KinoXP.model;
 
 import com.example.KinoXP.utils.AgeLimit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,16 +13,18 @@ public class Movie {
     private Long id;
     private String title;
     private String description;
+    @ElementCollection
     private List<String> genre;
     private Duration duration;
-    private Enum<AgeLimit> ageLimit;
+    @Enumerated(EnumType.STRING)
+    private AgeLimit ageLimit;
     private int releaseYear;
+    @ElementCollection
     private List<String> actors;
 
     public Movie(){}
 
-    public Movie(Long id, String title, String description, List<String> genre, Duration duration, Enum<AgeLimit> ageLimit, int releaseYear, List<String> actors) {
-        this.id = id;
+    public Movie(String title, String description, List<String> genre, Duration duration, AgeLimit ageLimit, int releaseYear, List<String> actors) {
         this.title = title;
         this.description = description;
         this.genre = genre;
@@ -83,7 +82,7 @@ public class Movie {
         this.duration = duration;
     }
 
-    public void setAgeLimit(Enum<AgeLimit> ageLimit) {
+    public void setAgeLimit(AgeLimit ageLimit) {
         this.ageLimit = ageLimit;
     }
 

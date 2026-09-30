@@ -21,7 +21,6 @@ class CreateMovieTest {
         MovieService movieService = new MovieService(movieRepo);
         List<String> actors = List.of("Actor 1", "Actor 2", "Actor 3");
         Movie movie = new Movie(
-                null,
                 "Interstellar",
                 "Space movie",
                 List.of("Sci-Fi", "Sci-Fi-2", "Sci-Fi-3"),
