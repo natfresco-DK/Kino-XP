@@ -1,13 +1,13 @@
 package com.example.KinoXP.controller;
 
-import com.example.KinoXP.model.Movie;
+import com.example.KinoXP.dto.MovieRequest;
+import com.example.KinoXP.dto.MovieResponse;
 import com.example.KinoXP.service.MovieService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MovieController {
+
     private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
@@ -15,7 +15,7 @@ public class MovieController {
     }
 
     @PostMapping("/api/movies")
-    public Movie create(@RequestBody Movie movie) {
-        return movieService.createMovie(movie);
+    public MovieResponse createMovie(@RequestBody MovieRequest request) {
+        return movieService.createMovie(request);
     }
 }

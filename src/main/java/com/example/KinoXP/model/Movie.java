@@ -2,19 +2,28 @@ package com.example.KinoXP.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.Duration;
 import java.util.List;
 
 @Entity
 public class Movie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     private String description;
+
+    @ElementCollection
     private List<String> genre;
-    private int duration;
+
+    private Duration duration;
+
+    @ElementCollection
     private List<String> actors;
+
     private int releaseYear;
 
     @Enumerated(EnumType.STRING)
@@ -25,9 +34,14 @@ public class Movie {
         AGE_18
     }
 
-    public Movie(){}
+    public Movie() {
+    }
 
-    public Movie(Long id, String title, String description, List<String> genre, int duration, List<String> actors, int releaseYear, AgeLimit ageLimit) {
+    public Movie(Long id, String title, String description,
+                 List<String> genre, Duration duration,
+                 List<String> actors, int releaseYear,
+                 AgeLimit ageLimit) {
+
         this.id = id;
         this.title = title;
         this.description = description;
@@ -70,11 +84,11 @@ public class Movie {
         this.genre = genre;
     }
 
-    public int getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
