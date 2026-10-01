@@ -7,12 +7,4 @@ public record CreateScreeningRequest(
         Long screenId,
         LocalDateTime startTime,
         LocalDateTime endTime
-) {
-    public Long movieId() {
-        return movieId;
-    }
-
-    public Long screenId() {
-        return screenId;
-    }
-}
+) {}
