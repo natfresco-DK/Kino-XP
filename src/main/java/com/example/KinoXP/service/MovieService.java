@@ -18,6 +18,7 @@ public class MovieService {
     }
 
     public Movie createMovie(Movie movie) {
+        validate(movie);
         return movieRepo.save(movie);
     }
 
@@ -26,6 +27,7 @@ public class MovieService {
     }
 
     public Movie updateMovie(Long id, Movie updatedMovie){
+        validate(updatedMovie);
         Movie movie = movieRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film ikke fundet"));
 
         movie.setTitle(updatedMovie.getTitle());
@@ -34,10 +36,23 @@ public class MovieService {
         movie.setDuration(updatedMovie.getDuration());
         movie.setAgeLimit(updatedMovie.getAgeLimit());
         movie.setDirector(updatedMovie.getDirector());
-        movie.setPremierDay(updatedMovie.getPremierDay());
 
 
         return movieRepo.save(movie);
+    }
+
+    private void validate(Movie movie){
+
+        if (movie.getTitle() == null || movie.getTitle().isBlank()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Titel må ikke være tom");
+        }
+        if (movie.getDuration() == null || movie.getDuration().isNegative() || movie.getDuration().isZero()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varighed skal være større end 0");
+        }
+        if (movie.getAgeLimit() < 16 || movie.getAgeLimit() > 18){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aldersgrænse skal være mellem 16 eller 18");
+        }
+
     }
 
 }

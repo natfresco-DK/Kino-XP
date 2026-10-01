@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.Duration;
+
 @Entity
 public class Movie {
     @Id
@@ -13,14 +15,13 @@ public class Movie {
     private String title;
     private String description;
     private String genre;
-    private String duration;
+    private Duration duration;
     private int ageLimit;
     private String director;
-    private String premierDay;
 
     public Movie(){}
 
-    public Movie(Long id, String title, String description, String genre, String duration, int ageLimit, String director, String premierDay) {
+    public Movie(Long id, String title, String description, String genre, Duration duration, int ageLimit, String director) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,7 +29,6 @@ public class Movie {
         this.duration = duration;
         this.ageLimit = ageLimit;
         this.director = director;
-        this.premierDay = premierDay;
     }
 
     public Long getId() {
@@ -48,7 +48,7 @@ public class Movie {
         return genre;
     }
 
-    public String getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
@@ -58,10 +58,6 @@ public class Movie {
 
     public String getDirector() {
         return director;
-    }
-
-    public String getPremierDay() {
-        return premierDay;
     }
 
     public void setId(Long id) {
@@ -80,7 +76,7 @@ public class Movie {
         this.genre = genre;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
@@ -90,9 +86,5 @@ public class Movie {
 
     public void setDirector(String director) {
         this.director = director;
-    }
-
-    public void setPremierDay(String premierDay) {
-        this.premierDay = premierDay;
     }
 }

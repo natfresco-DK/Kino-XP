@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Se Film</title>
+</head>
+<body>
+
+<h1>Film</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Titel</th>
+        <th>Genre</th>
+        <th>Varighed</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="movie-list"></tbody>
+</table>
+
+<div id="edit-section" hidden>
+    <h2>Rediger film</h2>
+    <form id="edit-form">
+        <input type="hidden" id="id">
+        <label>Titel <input id="title" required></label><br>
+        <label>Beskrivelse <input id="description"></label><br>
+        <label>Genre <input id="genre"></label><br>
+        <label>Varighed <input id="duration"></label><br>
+        <label>Aldersgrænse <input id="ageLimit" type="number" min="0"></label><br>
+        <label>Instruktør <input id="director"></label><br>
+        <button type="submit">Gem</button>
+        <button type="button" id="cancel">Annuller</button>
+    </form>
+</div>
+
+<script src="/js/SeeMovies.js"></script>
+
+
+</body>
+</html>
