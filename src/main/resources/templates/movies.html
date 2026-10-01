@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>KinoXP - Opret film</title>
-
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/CSS/style.css">
 </head>
 
 <body>
@@ -30,21 +29,18 @@
     <h1>Opret film</h1>
     <p class="subtitle">Indtast filmens oplysninger</p>
 
+    <p id="message"></p>
+
     <form id="movieForm">
 
         <div class="form-group">
             <label for="title">Titel</label>
-            <input
-                    type="text"
-                    id="title"
-                    required>
+            <input type="text" id="title" required>
         </div>
 
         <div class="form-group">
             <label for="description">Beskrivelse</label>
-            <textarea
-                    id="description"
-                    required></textarea>
+            <textarea id="description" required></textarea>
         </div>
 
         <div class="form-group">
@@ -115,7 +111,7 @@
 
 </main>
 
-<script src="/script.js"></script>
+<script src="/JS/script.js"></script>
 
 </body>
 </html>

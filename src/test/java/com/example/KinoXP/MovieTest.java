@@ -4,6 +4,7 @@ import com.example.KinoXP.dto.MovieRequest;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.service.MovieService;
+import com.example.KinoXP.utils.AgeLimit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MovieTest {
-
+//hej
     @Mock
     private MovieRepo movieRepo;
 
@@ -42,7 +43,7 @@ class MovieTest {
                                 List.of("Matthew McConaughey", "Anne Hathaway")
                         ) &&
                         movie.getReleaseYear() == 2014 &&
-                        movie.getAgeLimit() == Movie.AgeLimit.FROM_16
+                        movie.getAgeLimit() == AgeLimit.FROM_16
         ));
     }
 
@@ -65,73 +66,73 @@ class MovieTest {
 
         assertEquals("Interstellar", movie.getTitle());
         assertEquals(Duration.ofMinutes(169), movie.getDuration());
-        assertEquals(Movie.AgeLimit.FROM_16, movie.getAgeLimit());
+        assertEquals(AgeLimit.FROM_16, movie.getAgeLimit());
     }
 
     @Test
     void createMovie_withoutDuration_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                null, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                null, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withDuration30_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                30, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                30, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withNegativeDuration_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                -10, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                -10, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withoutTitle_throwsBadRequest() {
         assertBadRequest(new MovieRequest("", "Space movie", List.of("Sci-Fi"),
-                169, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withoutDescription_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "", List.of("Sci-Fi"),
-                169, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withoutGenre_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of(),
-                169, List.of("Matthew McConaughey"), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withoutActors_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                169, List.of(), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of(), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_actorWithNumbers_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                169, List.of("Matthew123"), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew123"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_actorWithInvalidSymbol_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                169, List.of("Matthew!"), 2014, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew!"), 2014, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withTooOldReleaseYear_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                169, List.of("Matthew McConaughey"), 1800, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew McConaughey"), 1800, AgeLimit.FROM_16));
     }
 
     @Test
     void createMovie_withTooFarFutureReleaseYear_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                169, List.of("Matthew McConaughey"), 2100, Movie.AgeLimit.FROM_16));
+                169, List.of("Matthew McConaughey"), 2100, AgeLimit.FROM_16));
     }
 
     @Test
@@ -148,7 +149,7 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey", "Anne Hathaway"),
                 2014,
-                Movie.AgeLimit.FROM_16
+                AgeLimit.FROM_16
         );
     }
 

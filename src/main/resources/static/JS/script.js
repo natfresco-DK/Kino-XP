@@ -1,5 +1,6 @@
 const movieForm = document.querySelector("#movieForm");
 const submitButton = movieForm.querySelector("button[type='submit']");
+const message = document.querySelector("#message");
 
 movieForm.addEventListener("submit", function(event) {
 
@@ -10,6 +11,7 @@ movieForm.addEventListener("submit", function(event) {
     }
 
     submitButton.disabled = true;
+    message.textContent = "";
 
     const movie = {
         title: document.querySelector("#title").value,
@@ -62,7 +64,7 @@ movieForm.addEventListener("submit", function(event) {
 
             console.log("Film oprettet:", data);
 
-            alert("Filmen er blevet oprettet!");
+            message.textContent = "Filmen er blevet oprettet!";
 
             movieForm.reset();
         })
@@ -71,7 +73,7 @@ movieForm.addEventListener("submit", function(event) {
 
             console.log("Fejl:", error);
 
-            alert(error.message);
+            message.textContent = error.message;
         })
 
         .finally(() => {
