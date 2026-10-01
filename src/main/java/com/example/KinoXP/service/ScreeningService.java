@@ -8,7 +8,9 @@ import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.repository.ScreenRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -28,6 +30,7 @@ public class ScreeningService {
         this.screenRepo = screenRepo;
     }
 
+    @Transactional
     public Optional<Screening> createScreening(
             CreateScreeningRequest request) {
         if(!request.endTime().isAfter(request.startTime())) {
@@ -35,20 +38,12 @@ public class ScreeningService {
                     "End time must be after start time"
             );
         }
-        Optional<Movie> movieResult = movieRepo.findById(request.movieId());
 
-        if (movieResult.isEmpty()) {
-            return Optional.empty();
-        }
+        Movie movie = getMovieOrThrow(request.movieId());
 
-        Optional<Screen> screenResult = screenRepo.findById(request.screenId());
+        Screen screen = getScreenOrThrow(request.screenId());
 
-        if (screenResult.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Movie movie = movieResult.get();
-        Screen screen = screenResult.get();
+        validateNoOverlap(screen, request.startTime(), request.endTime());
 
         Screening screening = new Screening(
                 movie,
@@ -60,5 +55,30 @@ public class ScreeningService {
         Screening savedScreening = screeningRepo.save(screening);
 
         return Optional.of(savedScreening);
+    }
+
+    private void validateNoOverlap(Screen screen, LocalDateTime startTime, LocalDateTime endTime) {
+        boolean isOverlapping = screeningRepo.isOverlapping(screen, startTime, endTime);
+        if (isOverlapping) {
+            throw new IllegalArgumentException(
+                    "Screening overlaps with an existing screening"
+            );
+        }
+    }
+
+    private Movie getMovieOrThrow(Long movieId) {
+        return movieRepo.findById(movieId)
+                .orElseThrow(() ->
+                        //her kunne man lave en custom exception, men det er ikke nødvendigt for nu
+                        new IllegalArgumentException("Movie not found")
+                );
+    }
+
+    private Screen getScreenOrThrow(Long screenId) {
+        return screenRepo.findById(screenId)
+                .orElseThrow(() ->
+                        //her kunne man lave en custom exception, men det er ikke nødvendigt for nu
+                        new IllegalArgumentException("Screen not found")
+                );
     }
 }
