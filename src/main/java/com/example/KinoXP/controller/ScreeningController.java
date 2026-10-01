@@ -1,9 +1,7 @@
 package com.example.KinoXP.controller;
 
 import com.example.KinoXP.dto.CreateScreeningRequest;
-import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.model.Screening;
-import com.example.KinoXP.service.MovieService;
 import com.example.KinoXP.service.ScreeningService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +13,11 @@ import java.util.Optional;
 public class ScreeningController {
 
     private final ScreeningService screeningService;
-    private final MovieService movieService;
 
     public ScreeningController(
-            ScreeningService screeningService, MovieService movieService) {
+            ScreeningService screeningService) {
 
         this.screeningService = screeningService;
-        this.movieService = movieService;
     }
 
     @PostMapping("/screenings")
