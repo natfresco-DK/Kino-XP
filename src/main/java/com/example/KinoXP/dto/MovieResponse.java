@@ -1,6 +1,8 @@
 package com.example.KinoXP.dto;
 
 import com.example.KinoXP.model.Movie;
+import com.example.KinoXP.utils.AgeLimit;
+
 import java.util.List;
 
 public record MovieResponse(
@@ -11,7 +13,7 @@ public record MovieResponse(
         long duration,
         List<String> actors,
         int releaseYear,
-        Movie.AgeLimit ageLimit
+        AgeLimit ageLimit
 ) {
     public static MovieResponse from(Movie movie) {
         return new MovieResponse(

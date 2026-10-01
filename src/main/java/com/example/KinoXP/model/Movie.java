@@ -63,6 +63,10 @@ public class Movie {
         return actors;
     }
 
+    public AgeLimit getAgeLimit() {
+        return ageLimit;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
