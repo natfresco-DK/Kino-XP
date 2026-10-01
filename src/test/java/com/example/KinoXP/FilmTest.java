@@ -4,9 +4,14 @@ import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.service.MovieService;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class FilmTest {
 
@@ -43,5 +48,19 @@ class FilmTest {
 
         verify(filmRepo).findAll();
     }
-    
+
+    @Test
+    void updateMovieNotFound(){
+        //Arange
+        MovieRepo movieRepo = mock(MovieRepo.class);
+        MovieService movieService = new MovieService(movieRepo);
+        when(movieRepo.findById(999L)).thenReturn(Optional.empty());
+
+        //Act
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,()
+                -> movieService.updateMovie(999L, new Movie()));
+
+        //Assert
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
 }
