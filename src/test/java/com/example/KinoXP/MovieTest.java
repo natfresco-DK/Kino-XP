@@ -10,8 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.time.Duration;
 import java.util.List;
@@ -263,20 +262,17 @@ class MovieTest {
         );
     }
 
-    // Kun de tests, der faktisk gemmer en film, kalder denne.
-    // MockitoExtension fejler med UnnecessaryStubbingException,
-    // hvis en test opsætter en mock, den aldrig bruger.
+
     private void saveReturnsSameMovie() {
         when(movieRepo.save(any(Movie.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
     }
 
     private void assertBadRequest(MovieRequest request) {
-        ResponseStatusException exception = assertThrows(
-                ResponseStatusException.class,
+        assertThrows(
+                IllegalArgumentException.class,
                 () -> movieService.createMovie(request)
         );
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         verify(movieRepo, never()).save(any());
     }
 }

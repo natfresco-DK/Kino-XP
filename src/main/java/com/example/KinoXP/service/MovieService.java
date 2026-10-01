@@ -108,10 +108,7 @@ public class MovieService {
                 list.stream().allMatch(this::isBlank);
     }
 
-    private ResponseStatusException badRequest(String message) {
-        return new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                message
-        );
+    private IllegalArgumentException badRequest(String message) {
+        return new IllegalArgumentException(message);
     }
 }
