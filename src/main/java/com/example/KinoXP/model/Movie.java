@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Film {
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,9 +18,9 @@ public class Film {
     private String director;
     private String premierDay;
 
-    public Film(){}
+    public Movie(){}
 
-    public Film(Long id, String title, String description, String genre, String duration, int ageLimit, String director, String premierDay) {
+    public Movie(Long id, String title, String description, String genre, String duration, int ageLimit, String director, String premierDay) {
         this.id = id;
         this.title = title;
         this.description = description;

@@ -1,8 +1,8 @@
 package com.example.KinoXP;
 
-import com.example.KinoXP.model.Film;
-import com.example.KinoXP.repository.FilmRepo;
-import com.example.KinoXP.service.FilmService;
+import com.example.KinoXP.model.Movie;
+import com.example.KinoXP.repository.MovieRepo;
+import com.example.KinoXP.service.MovieService;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;
@@ -13,10 +13,10 @@ class FilmTest {
     @Test
     void createFilmTest() {
 
-        FilmRepo filmRepo = mock(FilmRepo.class);
-        FilmService filmService = new FilmService(filmRepo);
+        MovieRepo filmRepo = mock(MovieRepo.class);
+        MovieService filmService = new MovieService(filmRepo);
 
-        Film film = new Film(
+        Movie film = new Movie(
                 null,
                 "Interstellar",
                 "Space movie",
@@ -27,7 +27,7 @@ class FilmTest {
                 "2014-11-07"
         );
 
-        filmService.createFilm(film);
+        filmService.createMovie(film);
 
         verify(filmRepo).save(film);
     }
@@ -36,10 +36,10 @@ class FilmTest {
     @Test
     void getAllFilmsTest() {
 
-        FilmRepo filmRepo = mock(FilmRepo.class);
-        FilmService filmService = new FilmService(filmRepo);
+        MovieRepo filmRepo = mock(MovieRepo.class);
+        MovieService filmService = new MovieService(filmRepo);
 
-        filmService.getAllFilms();
+        filmService.getAllMovies();
 
         verify(filmRepo).findAll();
     }
