@@ -5,8 +5,11 @@ import com.example.KinoXP.dto.MovieResponse;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.service.MovieService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,24 +21,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class MovieTest {
 
+    @Mock
     private MovieRepo movieRepo;
+
+    @InjectMocks
     private MovieService movieService;
-
-    @BeforeEach
-    void setUp() {
-        movieRepo = mock(MovieRepo.class);
-        movieService = new MovieService(movieRepo);
-
-        when(movieRepo.save(any(Movie.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
-    }
 
     @Test
     void createMovie_createsMovieWithCorrectData() {
-        MovieRequest request = validRequest();
-        movieService.createMovie(request);
+        saveReturnsSameMovie();
+
+        movieService.createMovie(validRequest());
+
         verify(movieRepo).save(argThat(movie ->
                 movie.getTitle().equals("Interstellar") &&
                         movie.getDescription().equals("Space movie") &&
@@ -45,13 +45,16 @@ class MovieTest {
                                 List.of("Matthew McConaughey", "Anne Hathaway")
                         ) &&
                         movie.getReleaseYear() == 2014 &&
-                        movie.getAgeLimit() == Movie.AgeLimit.AGE_16
+                        movie.getAgeLimit() == Movie.AgeLimit.FROM_16
         ));
     }
 
     @Test
     void createMovie_convertsMinutesToDuration() {
+        saveReturnsSameMovie();
+
         movieService.createMovie(validRequest());
+
         verify(movieRepo).save(argThat(movie ->
                 movie.getDuration().equals(Duration.ofMinutes(169))
         ));
@@ -59,11 +62,13 @@ class MovieTest {
 
     @Test
     void createMovie_returnsResponseWithMinutes() {
-        MovieResponse response =
-                movieService.createMovie(validRequest());
+        saveReturnsSameMovie();
+
+        MovieResponse response = movieService.createMovie(validRequest());
+
         assertEquals("Interstellar", response.title());
         assertEquals(169, response.duration());
-        assertEquals(Movie.AgeLimit.AGE_16, response.ageLimit());
+        assertEquals(Movie.AgeLimit.FROM_16, response.ageLimit());
     }
 
     @Test
@@ -75,7 +80,7 @@ class MovieTest {
                 null,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
 
         assertBadRequest(request);
@@ -90,8 +95,9 @@ class MovieTest {
                 30,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
@@ -104,14 +110,14 @@ class MovieTest {
                 -10,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
     @Test
     void createMovie_withoutTitle_throwsBadRequest() {
-
         MovieRequest request = new MovieRequest(
                 "",
                 "Space movie",
@@ -119,7 +125,7 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
 
         assertBadRequest(request);
@@ -134,14 +140,14 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
     @Test
     void createMovie_withoutGenre_throwsBadRequest() {
-
         MovieRequest request = new MovieRequest(
                 "Interstellar",
                 "Space movie",
@@ -149,14 +155,14 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
     @Test
     void createMovie_withoutActors_throwsBadRequest() {
-
         MovieRequest request = new MovieRequest(
                 "Interstellar",
                 "Space movie",
@@ -164,7 +170,7 @@ class MovieTest {
                 169,
                 List.of(),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
 
         assertBadRequest(request);
@@ -179,7 +185,7 @@ class MovieTest {
                 169,
                 List.of("Matthew123"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
 
         assertBadRequest(request);
@@ -194,8 +200,9 @@ class MovieTest {
                 169,
                 List.of("Matthew!"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
@@ -208,8 +215,9 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey"),
                 1800,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
@@ -222,14 +230,14 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey"),
                 2100,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+
         assertBadRequest(request);
     }
 
     @Test
     void createMovie_withoutAgeLimit_throwsBadRequest() {
-
         MovieRequest request = new MovieRequest(
                 "Interstellar",
                 "Space movie",
@@ -251,8 +259,16 @@ class MovieTest {
                 169,
                 List.of("Matthew McConaughey", "Anne Hathaway"),
                 2014,
-                Movie.AgeLimit.AGE_16
+                Movie.AgeLimit.FROM_16
         );
+    }
+
+    // Kun de tests, der faktisk gemmer en film, kalder denne.
+    // MockitoExtension fejler med UnnecessaryStubbingException,
+    // hvis en test opsætter en mock, den aldrig bruger.
+    private void saveReturnsSameMovie() {
+        when(movieRepo.save(any(Movie.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
     }
 
     private void assertBadRequest(MovieRequest request) {
@@ -260,10 +276,7 @@ class MovieTest {
                 ResponseStatusException.class,
                 () -> movieService.createMovie(request)
         );
-        assertEquals(
-                HttpStatus.BAD_REQUEST,
-                exception.getStatusCode()
-        );
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         verify(movieRepo, never()).save(any());
     }
 }

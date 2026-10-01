@@ -74,7 +74,7 @@ public class MovieService {
 
         for (String actor : request.actors()) {
 
-            if (!actor.trim().matches("[\\p{L} '-]+")) {
+            if (!actor.trim().matches("^[a-zæøåÆØÅA-Z]+( [a-zæøåÆØÅA-Z]+)*$")) {
                 throw badRequest(
                         "Skuespillere må kun indeholde bogstaver"
                 );

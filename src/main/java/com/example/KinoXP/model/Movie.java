@@ -30,8 +30,8 @@ public class Movie {
     private AgeLimit ageLimit;
 
     public enum AgeLimit {
-        AGE_16,
-        AGE_18
+        FROM_16,
+        FROM_18
     }
 
     public Movie() {

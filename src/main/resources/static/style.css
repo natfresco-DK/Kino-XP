@@ -12,8 +12,6 @@ body {
 }
 
 
-/* SIDEBAR */
-
 .sidebar {
     width: 240px;
     min-height: 100vh;
@@ -52,7 +50,6 @@ body {
 }
 
 
-/* CONTENT */
 
 .content {
     padding: 20px 30px;
@@ -70,7 +67,6 @@ body {
 }
 
 
-/* FORM */
 
 .form-group {
     display: flex;
@@ -106,7 +102,6 @@ textarea {
 }
 
 
-/* TO FELTER VED SIDEN AF HINANDEN */
 
 .row {
     display: flex;
@@ -118,7 +113,6 @@ textarea {
 }
 
 
-/* KNAPPER */
 
 .buttons {
     display: flex;
