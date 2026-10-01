@@ -8,6 +8,7 @@ import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.repository.ScreenRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class ScreeningService {
         this.screenRepo = screenRepo;
     }
 
+    @Transactional
     public Optional<Screening> createScreening(
             CreateScreeningRequest request) {
         if(!request.endTime().isAfter(request.startTime())) {
