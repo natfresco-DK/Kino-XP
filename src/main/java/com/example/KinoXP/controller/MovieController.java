@@ -15,7 +15,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping("/api/films")
+    @PostMapping("/movies")
     public Movie create(@RequestBody Movie movie) {
         return movieService.createMovie(movie);
     }
