@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>KinoXP - Opret film</title>
-    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -32,31 +33,23 @@
 
     <form id="movieForm">
 
-        <!-- Titel -->
         <div class="form-group">
             <label for="title">Titel</label>
-
             <input
                     type="text"
                     id="title"
                     required>
         </div>
 
-
-        <!-- Beskrivelse -->
         <div class="form-group">
             <label for="description">Beskrivelse</label>
-
             <textarea
                     id="description"
                     required></textarea>
         </div>
 
-
-        <!-- Genre -->
         <div class="form-group">
             <label for="genre">Genre / Kategori</label>
-
             <input
                     type="text"
                     id="genre"
@@ -64,10 +57,8 @@
                     required>
         </div>
 
-
         <div class="row">
 
-            <!-- Aldersgrænse -->
             <div class="form-group small">
                 <label for="ageLimit">Aldersgrænse</label>
 
@@ -81,8 +72,6 @@
                 </select>
             </div>
 
-
-            <!-- Spilletid -->
             <div class="form-group small">
                 <label for="duration">
                     Spilletid (antal minutter)
@@ -97,8 +86,6 @@
 
         </div>
 
-
-        <!-- Skuespillere -->
         <div class="form-group">
             <label for="actors">Skuespillere</label>
 
@@ -109,8 +96,6 @@
                     required>
         </div>
 
-
-        <!-- Udgivelsesår -->
         <div class="form-group small">
             <label for="releaseYear">Udgivelsesår</label>
 
@@ -120,8 +105,6 @@
                     required>
         </div>
 
-
-        <!-- Knapper -->
         <div class="buttons">
 
             <button type="submit">
@@ -138,9 +121,7 @@
 
 </main>
 
-
-<script src="../static/script.js"></script>
+<script src="/script.js"></script>
 
 </body>
-
 </html>
