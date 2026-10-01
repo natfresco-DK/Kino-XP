@@ -13,7 +13,7 @@
     <tr>
         <th>Titel</th>
         <th>Genre</th>
-        <th>Varighed</th>
+        <th>Varighed (min)</th>
         <th></th>
     </tr>
     </thead>
@@ -27,16 +27,21 @@
         <label>Titel <input id="title" required></label><br>
         <label>Beskrivelse <input id="description"></label><br>
         <label>Genre <input id="genre"></label><br>
-        <label>Varighed <input id="duration"></label><br>
-        <label>Aldersgrænse <input id="ageLimit" type="number" min="0"></label><br>
-        <label>Instruktør <input id="director"></label><br>
+        <label>Varighed i minutter <input id="duration" type="number" min="31"></label><br>
+        <label>Skuespillere <input id="actors"></label><br>
+        <label>Udgivelsesår <input id="releaseYear" type="number"></label><br>
+        <label>Aldersgrænse
+            <select id="ageLimit">
+                <option value="FROM_16">16+</option>
+                <option value="FROM_18">18+</option>
+            </select>
+        </label><br>
         <button type="submit">Gem</button>
         <button type="button" id="cancel">Annuller</button>
     </form>
 </div>
 
-<script src="/js/SeeMovies.js"></script>
-
+<script src="/js/EditMovies.js"></script>
 
 </body>
 </html>

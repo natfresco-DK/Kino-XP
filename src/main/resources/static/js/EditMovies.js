@@ -1,4 +1,5 @@
-const fields = ["title", "description", "genre", "duration", "ageLimit", "director", "premierDay"];
+const fields = ["title", "description", "genre", "duration", "actors", "releaseYear", "ageLimit"];
+const listFields = ["genre", "actors"];
 
 async function loadMovies() {
     const res = await fetch("/api/movies");
@@ -9,14 +10,14 @@ async function loadMovies() {
     movies.forEach(m => {
         const tr = document.createElement("tr");
 
-        [m.title, m.genre, m.duration].forEach(text => {
+        [m.title, m.genre.join(", "), m.duration].forEach(text => {
             const td = document.createElement("td");
             td.textContent = text;
-            tr .appendChild(td);
-            });
+            tr.appendChild(td);
+        });
 
         const td = document.createElement("td");
-        const btn = document.createElement("button")
+        const btn = document.createElement("button");
         btn.textContent = "Rediger";
         btn.onclick = () => openEdit(m);
         td.appendChild(btn);
@@ -28,16 +29,25 @@ async function loadMovies() {
 
 function openEdit(m) {
     document.getElementById("id").value = m.id;
-    fields.forEach(f => document.getElementById(f).value = m[f]);
+    fields.forEach(f => {
+        const value = listFields.includes(f) ? m[f].join(", ") : m[f];
+        document.getElementById(f).value = value;
+    });
     document.getElementById("edit-section").hidden = false;
 }
 
-document.getElementById("edit-form").onsubmit = async  e => {
+document.getElementById("edit-form").onsubmit = async e => {
     e.preventDefault();
     const id = document.getElementById("id").value;
+
     const movie = {};
     fields.forEach(f => movie[f] = document.getElementById(f).value);
-    movie.ageLimit = Number(movie.ageLimit);
+
+    listFields.forEach(f => {
+        movie[f] = movie[f].split(",").map(s => s.trim()).filter(s => s !== "");
+    });
+    movie.duration = Number(movie.duration);
+    movie.releaseYear = Number(movie.releaseYear);
 
     const res = await fetch("/api/movies/" + id, {
         method: "PUT",
@@ -46,7 +56,8 @@ document.getElementById("edit-form").onsubmit = async  e => {
     });
 
     if (!res.ok) {
-        alert("Kunne ikke gemme filmen");
+        const error = await res.json().catch(() => ({}));
+        alert(error.message || "Kunne ikke gemme filmen");
         return;
     }
 

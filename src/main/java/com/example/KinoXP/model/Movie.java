@@ -1,11 +1,10 @@
 package com.example.KinoXP.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.KinoXP.utils.AgeLimit;
+import jakarta.persistence.*;
 
 import java.time.Duration;
+import java.util.List;
 
 @Entity
 public class Movie {
@@ -14,37 +13,41 @@ public class Movie {
     private Long id;
     private String title;
     private String description;
-    private String genre;
+    @ElementCollection
+    private List<String> genre;
     private Duration duration;
-    private int ageLimit;
-    private String director;
+    @Enumerated(EnumType.STRING)
+    private AgeLimit ageLimit;
+    private int releaseYear;
+    @ElementCollection
+    private List<String> actors;
 
     public Movie(){}
 
-    public Movie(Long id, String title, String description, String genre, Duration duration, int ageLimit, String director) {
-        this.id = id;
+    public Movie(String title, String description, List<String> genre, Duration duration, AgeLimit ageLimit, int releaseYear, List<String> actors) {
         this.title = title;
         this.description = description;
         this.genre = genre;
         this.duration = duration;
         this.ageLimit = ageLimit;
-        this.director = director;
+        this.releaseYear = releaseYear;
+        this.actors = actors;
     }
 
     public Long getId() {
         return id;
     }
 
-
     public String getTitle() {
         return title;
     }
+
 
     public String getDescription() {
         return description;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
@@ -52,12 +55,16 @@ public class Movie {
         return duration;
     }
 
-    public int getAgeLimit() {
-        return ageLimit;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public String getDirector() {
-        return director;
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public AgeLimit getAgeLimit() {
+        return ageLimit;
     }
 
     public void setId(Long id) {
@@ -72,7 +79,7 @@ public class Movie {
         this.description = description;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 
@@ -80,11 +87,14 @@ public class Movie {
         this.duration = duration;
     }
 
-    public void setAgeLimit(int ageLimit) {
+    public void setAgeLimit(AgeLimit ageLimit) {
         this.ageLimit = ageLimit;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void  setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+    public void setActors(List<String> actors) {
+        this.actors = actors;
     }
 }

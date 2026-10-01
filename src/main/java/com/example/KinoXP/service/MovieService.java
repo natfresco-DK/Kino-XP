@@ -1,11 +1,14 @@
 package com.example.KinoXP.service;
 
+import com.example.KinoXP.dto.MovieRequest;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -17,42 +20,92 @@ public class MovieService {
         this.movieRepo = movieRepo;
     }
 
-    public Movie createMovie(Movie movie) {
-        validate(movie);
+    public Movie createMovie(MovieRequest request) {
+
+        validate(request);
+
+        Movie movie = new Movie(
+                request.title().trim(),
+                request.description().trim(),
+                request.genre(),
+                Duration.ofMinutes(request.duration()),
+                request.ageLimit(),
+                request.releaseYear(),
+                request.actors()
+        );
+
         return movieRepo.save(movie);
     }
 
-    public List<Movie> getAllMovies(){
+    public List<Movie> getAllMovies() {
         return movieRepo.findAll();
     }
 
-    public Movie updateMovie(Long id, Movie updatedMovie){
-        validate(updatedMovie);
-        Movie movie = movieRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film ikke fundet"));
+    public Movie updateMovie(Long id, MovieRequest request) {
+        validate(request);
 
-        movie.setTitle(updatedMovie.getTitle());
-        movie.setDescription(updatedMovie.getDescription());
-        movie.setGenre(updatedMovie.getGenre());
-        movie.setDuration(updatedMovie.getDuration());
-        movie.setAgeLimit(updatedMovie.getAgeLimit());
-        movie.setDirector(updatedMovie.getDirector());
+        Movie movie = movieRepo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film ikke fundet"));
 
+        movie.setTitle(request.title().trim());
+        movie.setDescription(request.description().trim());
+        movie.setGenre(request.genre());
+        movie.setDuration(Duration.ofMinutes(request.duration()));
+        movie.setAgeLimit(request.ageLimit());
+        movie.setReleaseYear(request.releaseYear());
+        movie.setActors(request.actors());
 
         return movieRepo.save(movie);
     }
 
-    private void validate(Movie movie){
+    private void validate(MovieRequest request) {
 
-        if (movie.getTitle() == null || movie.getTitle().isBlank()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Titel må ikke være tom");
-        }
-        if (movie.getDuration() == null || movie.getDuration().isNegative() || movie.getDuration().isZero()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Varighed skal være større end 0");
-        }
-        if (movie.getAgeLimit() < 16 || movie.getAgeLimit() > 18){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aldersgrænse skal være mellem 16 eller 18");
+        if (isBlank(request.title())) {
+            throw badRequest("Tilføj en titel");
         }
 
+        if (isBlank(request.description())) {
+            throw badRequest("Tilføj en beskrivelse");
+        }
+
+        if (isEmptyList(request.genre())) {
+            throw badRequest("Tilføj mindst én genre");
+        }
+
+        if (request.duration() == null || request.duration() <= 30) {
+            throw badRequest("Varighed må ikke være mindre 31 minutter");
+        }
+
+        if (isEmptyList(request.actors())) {
+            throw badRequest("Tilføj mindst én skuespiller");
+        }
+
+        for (String actor : request.actors()) {
+            if (!actor.trim().matches("^[a-zæøåÆØÅA-Z ]+$")) {
+                throw badRequest("Skuespillere må kun indeholde bogstaver");
+            }
+        }
+
+        int currentYear = Year.now().getValue();
+
+        if (request.releaseYear() < 1900 || request.releaseYear() > currentYear + 5) {
+            throw badRequest("Udgivelsesår skal være mellem 1900 og " + (currentYear + 5));
+        }
+
+        if (request.ageLimit() == null) {
+            throw badRequest("Filmen skal have en aldersgrænse");
+        }
     }
 
+    private boolean isBlank(String text) {
+        return text == null || text.isBlank();
+    }
+
+    private boolean isEmptyList(List<String> list) {
+        return list == null || list.stream().allMatch(this::isBlank);
+    }
+
+    private IllegalArgumentException badRequest(String message) {
+        return new IllegalArgumentException(message);
+    }
 }
