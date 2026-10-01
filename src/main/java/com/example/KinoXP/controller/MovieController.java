@@ -23,7 +23,7 @@ public class MovieController {
         return "movies";
     }
 
-    @PostMapping("/api/movies")
+    @PostMapping("/movies")
     public ResponseEntity<?> createMovie(@RequestBody MovieRequest request) {
         try {
             MovieResponse movie = movieService.createMovie(request);
