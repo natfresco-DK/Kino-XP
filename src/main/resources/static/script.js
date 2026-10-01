@@ -5,14 +5,15 @@ movieForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-
     if (submitButton.disabled) {
         return;
     }
+
     submitButton.disabled = true;
 
     const movie = {
         title: document.querySelector("#title").value,
+
         description: document.querySelector("#description").value,
 
         genre: document.querySelector("#genre")
@@ -41,13 +42,16 @@ movieForm.addEventListener("submit", function(event) {
 
         body: JSON.stringify(movie)
     })
+
         .then(response => {
 
             if (!response.ok) {
                 return response.json()
                     .catch(() => ({}))
                     .then(body => {
-                        throw new Error(body.message || "Filmen kunne ikke oprettes.");
+                        throw new Error(
+                            body.message || "Filmen kunne ikke oprettes."
+                        );
                     });
             }
 
@@ -55,6 +59,7 @@ movieForm.addEventListener("submit", function(event) {
         })
 
         .then(data => {
+
             console.log("Film oprettet:", data);
 
             alert("Filmen er blevet oprettet!");
@@ -63,6 +68,7 @@ movieForm.addEventListener("submit", function(event) {
         })
 
         .catch(error => {
+
             console.log("Fejl:", error);
 
             alert(error.message);

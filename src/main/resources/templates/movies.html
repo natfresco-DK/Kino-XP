@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>KinoXP - Opret film</title>
-    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -24,7 +25,6 @@
 
 </aside>
 
-
 <main class="content">
 
     <h1>Opret film</h1>
@@ -34,27 +34,21 @@
 
         <div class="form-group">
             <label for="title">Titel</label>
-
             <input
                     type="text"
                     id="title"
                     required>
         </div>
 
-
-        <!-- Beskrivelse -->
         <div class="form-group">
             <label for="description">Beskrivelse</label>
-
             <textarea
                     id="description"
                     required></textarea>
         </div>
 
-
         <div class="form-group">
             <label for="genre">Genre / Kategori</label>
-
             <input
                     type="text"
                     id="genre"
@@ -62,27 +56,19 @@
                     required>
         </div>
 
-
         <div class="row">
 
             <div class="form-group small">
                 <label for="ageLimit">Aldersgrænse</label>
 
-                <select
-                        id="ageLimit"
-                        required>
-
+                <select id="ageLimit" required>
                     <option value="FROM_16">16 år</option>
                     <option value="FROM_18">18 år</option>
-
                 </select>
             </div>
 
-
             <div class="form-group small">
-                <label for="duration">
-                    Spilletid (antal minutter)
-                </label>
+                <label for="duration">Spilletid (antal minutter)</label>
 
                 <input
                         type="number"
@@ -93,17 +79,15 @@
 
         </div>
 
-
         <div class="form-group">
             <label for="actors">Skuespillere</label>
 
             <input
                     type="text"
                     id="actors"
-                    placeholder="Matthew McConaughey, Anne Hathaway"
+                    placeholder="Hayden Christensen, Ewan McGregor, Natalie Portman"
                     required>
         </div>
-
 
         <div class="form-group small">
             <label for="releaseYear">Udgivelsesår</label>
@@ -111,9 +95,9 @@
             <input
                     type="number"
                     id="releaseYear"
+                    min="1888"
                     required>
         </div>
-
 
         <div class="buttons">
 
@@ -131,9 +115,7 @@
 
 </main>
 
-
-<script src="../static/script.js"></script>
+<script src="/script.js"></script>
 
 </body>
-
 </html>
