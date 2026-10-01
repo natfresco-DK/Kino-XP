@@ -70,17 +70,6 @@ h1 {
     font-size: 36px;
 }
 
-.back-link {
-    color: #ff0000;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
 .form-container {
     background-color: #1a1a1a;
     border: 2px solid #ff0000;
@@ -156,26 +145,9 @@ button.cancel:hover {
     color: #fff;
 }
 
-.error-message {
+.message {
     color: #ff6666;
     font-size: 12px;
     margin-top: 5px;
     display: none;
-}
-
-.success-message {
-    background-color: #1a3a1a;
-    border: 2px solid #00ff00;
-    color: #00ff00;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: none;
-}
-
-.loading {
-    display: none;
-    color: #ff0000;
-    font-size: 12px;
-    margin-top: 5px;
 }
