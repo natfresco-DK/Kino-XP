@@ -19,8 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -72,7 +71,7 @@ class ScreeningServiceTest {
 
 
     @Test
-    void should_return_empty_when_movie_does_not_exist() {
+    void should_throw_exception_when_movie_does_not_exist() {
 
         // Arrange
         CreateScreeningRequest request =
@@ -87,16 +86,12 @@ class ScreeningServiceTest {
 
 
         // Act
-        Optional<Screening> result = screeningService.createScreening(request);
-
-
-        // Assert
-        assertTrue(result.isEmpty());
+        assertThrows(IllegalArgumentException.class, () -> screeningService.createScreening(request));
     }
 
 
     @Test
-    void should_return_empty_when_screen_does_not_exist() {
+    void should_throw_exception_when_screen_does_not_exist() {
 
         // Arrange
         Movie movie = new Movie();
@@ -113,18 +108,14 @@ class ScreeningServiceTest {
 
         when(screenRepo.findById(1L)).thenReturn(Optional.empty());
 
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> screeningService.createScreening(request));
 
-        // Act
-        Optional<Screening> result = screeningService.createScreening(request);
-
-
-        // Assert
-        assertTrue(result.isEmpty());
     }
 
 
     @Test
-    void should_throw_error_when_end_time_is_before_start_time() {
+    void should_throw_exception_when_end_time_is_before_start_time() {
 
         // Arrange
         CreateScreeningRequest request =
@@ -143,7 +134,7 @@ class ScreeningServiceTest {
     }
 
     @Test
-    void should_throw_error_when_screening_overlaps() {
+    void should_throw_exception_when_screening_overlaps() {
 
         // Arrange
         Movie movie = new Movie();
