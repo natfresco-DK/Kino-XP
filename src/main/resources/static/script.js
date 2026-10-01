@@ -1,8 +1,15 @@
 const movieForm = document.querySelector("#movieForm");
+const submitButton = movieForm.querySelector("button[type='submit']");
 
 movieForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
+
+
+    if (submitButton.disabled) {
+        return;
+    }
+    submitButton.disabled = true;
 
     const movie = {
         title: document.querySelector("#title").value,
@@ -25,7 +32,7 @@ movieForm.addEventListener("submit", function(event) {
         ageLimit: document.querySelector("#ageLimit").value
     };
 
-    fetch("/api/movies", {
+    fetch("/movies", {
         method: "POST",
 
         headers: {
@@ -37,7 +44,11 @@ movieForm.addEventListener("submit", function(event) {
         .then(response => {
 
             if (!response.ok) {
-                throw new Error("Filmen kunne ikke oprettes");
+                return response.json()
+                    .catch(() => ({}))
+                    .then(body => {
+                        throw new Error(body.message || "Filmen kunne ikke oprettes.");
+                    });
             }
 
             return response.json();
@@ -54,6 +65,11 @@ movieForm.addEventListener("submit", function(event) {
         .catch(error => {
             console.log("Fejl:", error);
 
-            alert("Filmen kunne ikke oprettes.");
+            alert(error.message);
+        })
+
+        .finally(() => {
+
+            submitButton.disabled = false;
         });
 });

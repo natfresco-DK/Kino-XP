@@ -1,12 +1,9 @@
 package com.example.KinoXP.service;
 
 import com.example.KinoXP.dto.MovieRequest;
-import com.example.KinoXP.dto.MovieResponse;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 import java.time.Year;
@@ -21,7 +18,7 @@ public class MovieService {
         this.movieRepo = movieRepo;
     }
 
-    public MovieResponse createMovie(MovieRequest request) {
+    public Movie createMovie(MovieRequest request) {
 
         validate(request);
 
@@ -36,18 +33,7 @@ public class MovieService {
                 request.ageLimit()
         );
 
-        Movie savedMovie = movieRepo.save(movie);
-
-        return new MovieResponse(
-                savedMovie.getId(),
-                savedMovie.getTitle(),
-                savedMovie.getDescription(),
-                savedMovie.getGenre(),
-                savedMovie.getDuration().toMinutes(),
-                savedMovie.getActors(),
-                savedMovie.getReleaseYear(),
-                savedMovie.getAgeLimit()
-        );
+        return movieRepo.save(movie);
     }
 
     private void validate(MovieRequest request) {
@@ -73,29 +59,19 @@ public class MovieService {
         }
 
         for (String actor : request.actors()) {
-
-            if (!actor.trim().matches("^[a-zæøåÆØÅA-Z]+( [a-zæøåÆØÅA-Z]+)*$")) {
-                throw badRequest(
-                        "Skuespillere må kun indeholde bogstaver"
-                );
+            if (!actor.trim().matches("^[a-zæøåÆØÅA-Z ]+$")) {
+                throw badRequest("Skuespillere må kun indeholde bogstaver");
             }
         }
 
         int currentYear = Year.now().getValue();
 
-        if (request.releaseYear() < 1888 ||
-                request.releaseYear() > currentYear + 5) {
-
-            throw badRequest(
-                    "Udgivelsesår skal være mellem 1888 og "
-                            + (currentYear + 5)
-            );
+        if (request.releaseYear() < 1888 || request.releaseYear() > currentYear + 5) {
+            throw badRequest("Udgivelsesår skal være mellem 1888 og " + (currentYear + 5));
         }
 
         if (request.ageLimit() == null) {
-            throw badRequest(
-                    "Filmen skal have en aldersgrænse"
-            );
+            throw badRequest("Filmen skal have en aldersgrænse");
         }
     }
 
@@ -104,8 +80,7 @@ public class MovieService {
     }
 
     private boolean isEmptyList(List<String> list) {
-        return list == null ||
-                list.stream().allMatch(this::isBlank);
+        return list == null || list.stream().allMatch(this::isBlank);
     }
 
     private IllegalArgumentException badRequest(String message) {

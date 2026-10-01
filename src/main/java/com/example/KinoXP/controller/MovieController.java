@@ -2,6 +2,7 @@ package com.example.KinoXP.controller;
 
 import com.example.KinoXP.dto.MovieRequest;
 import com.example.KinoXP.dto.MovieResponse;
+import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.service.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class MovieController {
     @PostMapping("/movies")
     public ResponseEntity<?> createMovie(@RequestBody MovieRequest request) {
         try {
-            MovieResponse movie = movieService.createMovie(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(movie);
+            Movie movie = movieService.createMovie(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(MovieResponse.from(movie));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
