@@ -23,14 +23,13 @@ public class MovieService {
         validate(request);
 
         Movie movie = new Movie(
-                null,
                 request.title().trim(),
                 request.description().trim(),
                 request.genre(),
                 Duration.ofMinutes(request.duration()),
-                request.actors(),
+                request.ageLimit(),
                 request.releaseYear(),
-                request.ageLimit()
+                request.actors()
         );
 
         return movieRepo.save(movie);

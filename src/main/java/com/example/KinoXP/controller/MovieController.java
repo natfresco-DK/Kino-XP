@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Controller
 public class MovieController {
-
     private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
