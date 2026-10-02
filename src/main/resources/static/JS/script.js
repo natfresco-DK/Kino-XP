@@ -23,7 +23,7 @@ movieForm.addEventListener("submit", function(event) {
             .split(",")
             .map(genre => genre.trim()),
 
-        duration: Number(document.querySelector("#duration").value),
+        duration: "PT" + document.querySelector("#duration").value + "M",
 
         actors: document.querySelector("#actors")
             .value

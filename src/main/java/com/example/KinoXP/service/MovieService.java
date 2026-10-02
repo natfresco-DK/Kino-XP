@@ -26,7 +26,7 @@ public class MovieService {
                 request.title().trim(),
                 request.description().trim(),
                 request.genre(),
-                Duration.ofMinutes(request.duration()),
+                (request.duration()),
                 request.ageLimit(),
                 request.releaseYear(),
                 request.actors()
@@ -49,7 +49,7 @@ public class MovieService {
             throw badRequest("Filmen skal have mindst én genre");
         }
 
-        if (request.duration() == null || request.duration() <= 30) {
+        if (request.duration() == null || request.duration().toMinutes() <= 30) {
             throw badRequest("Varighed skal være mindst 31 minutter");
         }
 

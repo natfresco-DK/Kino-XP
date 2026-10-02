@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -31,7 +32,7 @@ class CreateMovieTest {
                 "Interstellar",
                 "Space movie",
                 List.of("Sci-Fi", "Sci-Fi-2", "Sci-Fi-3"),
-                169,
+                Duration.ofMinutes(167),
                 List.of("Matthew McConaughey"),
                 2000,
                 AgeLimit.FROM_16
