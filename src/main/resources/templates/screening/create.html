@@ -3,8 +3,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <title>Opret forestilling | KinoXP</title>
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <link rel="stylesheet" th:href="@{/CSS/base.css}">
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/CSS/create-screening.css}">
+
 </head>
 <body>
 
@@ -14,8 +16,8 @@
 
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <main class="main-content">
-        <section class="content-section">
+    <main class="main-content screening-page">
+        <section class="content-section screening-form-card">
             <div class="header">
                 <h1>Opret forestilling</h1>
             </div>
@@ -23,44 +25,29 @@
             <div class="form-container">
                 <form id="screeningForm">
                     <div class="form-group">
-                        <label for="movie">Film:</label>
+                        <label for="movie">Film <span class="req">*</span></label>
                         <select id="movie" name="movie" required>
-                            <option value="">Vælg en film</option>
+                            <option value="">Vælg film</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="screen">Sal:</label>
+                        <label for="screen">Sal <span class="req">*</span></label>
                         <select id="screen" name="screen" required>
-                            <option value="">Vælg en sal</option>
+                            <option value="">Vælg biografsal</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="startTime">Starttidspunkt:</label>
-                        <input
-                                type="datetime-local"
-                                id="startTime"
-                                name="startTime"
-                                required>
-                    </div>
+                        <label for="startTime">Starttidspunkt <span class="req">*</span></label>
+                        <input type="datetime-local" id="startTime" name="startTime" required></div>
 
                     <div class="form-group">
-                        <label for="endTime">Sluttidspunkt:</label>
-                        <input
-                                type="datetime-local"
-                                id="endTime"
-                                name="endTime"
-                                required>
-                    </div>
+                        <label for="endTime">Sluttidspunkt <span class="req">*</span></label>
+                        <input type="datetime-local" id="endTime" name="endTime" required></div>
 
                     <div class="button-group">
-                        <button type="submit" id="submitBtn">
-                            Opret forestilling
-                        </button>
-                        <button type="reset" id="resetBtn" class="cancel">
-                            Annuller
-                        </button>
+                        <button type="submit" id="submitBtn">Opret forestilling</button>
+                        <button type="reset" id="resetBtn" class="cancel">Annuller</button>
                     </div>
                 </form>
             </div>
@@ -68,7 +55,7 @@
         </section>
 
 
-        <section class="content-section">
+        <section class="content-section screening-list-card">
             <div class="header">
                 <h2>Eksisterende forestillinger</h2>
             </div>
@@ -95,6 +82,6 @@
 
 </div>
 <script th:src="@{/JS/sidebar.js}"></script>
-<script src="/JS/CreateScreening.js"></script>
+<script th:src="@{/JS/CreateScreening.js}"></script>
 </body>
 </html>
