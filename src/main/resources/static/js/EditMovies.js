@@ -10,7 +10,7 @@ async function loadMovies() {
     movies.forEach(movie => {
         const tr = document.createElement("tr");
 
-        [movie.title, movie.description, movie.genre.join(", "), movie.duration, movie.actors.join(", "), movie.releaseYear, movie.ageLimit].forEach(text => {
+        [movie.title, movie.description, movie.genre.join(", "), movie.durationMinutes, movie.actors.join(", "), movie.releaseYear, movie.ageLimit].forEach(text => {
             const td = document.createElement("td");
             td.textContent = text;
             tr.appendChild(td);
@@ -45,14 +45,7 @@ document.getElementById("edit-form").onsubmit = async event => {
 
     listFields.forEach(field => {
         movie[field] = movie[field].split(",").map(genre => genre.trim()).filter(genre => genre !== "");
-    });
-    movie.duration = Number(movie.duration);
-    movie.releaseYear = Number(movie.releaseYear);
 
-    const res = await fetch("/api/movies/" + id, {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(movie)
     });
 
     if (!res.ok) {
