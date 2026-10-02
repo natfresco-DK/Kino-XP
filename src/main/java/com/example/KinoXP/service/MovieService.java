@@ -50,7 +50,7 @@ public class MovieService {
         }
 
         if (request.duration() == null || request.duration().toMinutes() < 0 ) {
-            throw badRequest("Varighed skal være mindst 31 minutter");
+            throw badRequest("Varighed skal være være et positivt tal");
         }
 
         if (isEmptyList(request.actors())) {
