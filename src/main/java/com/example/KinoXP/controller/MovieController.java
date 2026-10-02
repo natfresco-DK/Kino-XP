@@ -18,16 +18,10 @@ public class MovieController {
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
-
-    @GetMapping("/movies")
-    public String movies() {
-        return "movies";
-    }
-
+    
     @PostMapping("/movies")
     @ResponseBody
     public ResponseEntity<?> createMovie(@RequestBody MovieRequest request) {
-
         try {
             Movie movie = movieService.createMovie(request);
 

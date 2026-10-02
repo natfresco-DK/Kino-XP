@@ -25,6 +25,7 @@ movieForm.addEventListener("submit", function(event) {
 
         duration: "PT" + document.querySelector("#duration").value + "M",
 
+        
         actors: document.querySelector("#actors")
             .value
             .split(",")
