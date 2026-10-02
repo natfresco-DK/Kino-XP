@@ -1,0 +1,37 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+</head>
+<body>
+<aside th:fragment="sidebar" class="sidebar">
+
+    <h2>Medarbejderpanel</h2>
+    <div class="sidebar-group">
+        <button class="sidebar-item active" onclick="toggleFilmMenu()">
+            <span class="sidebar-icon">▣</span>
+            <span>Film</span>
+            <span class="sidebar-arrow" id="filmArrow">⌄</span>
+        </button>
+
+        <div class="sidebar-submenu" id="filmMenu">
+            <a href="/movies/create" class="sidebar-subitem">Opret film</a>
+            <a href="/movies" class="sidebar-subitem">Se film</a>
+        </div>
+    </div>
+
+    <a href="/program" class="sidebar-item">
+        <span class="sidebar-icon">▣</span>
+        <span>Program</span>
+    </a>
+
+    <a href="/settings" class="sidebar-item">
+        <span class="sidebar-icon">⚙</span>
+        <span>Indstillinger</span>
+    </a>
+
+
+    <footer id="footer">tes</footer>
+</aside>
+</body>
+</html>

@@ -8,6 +8,6 @@ public class ScreeningPageController {
 
     @GetMapping("/screenings/create")
     public String showCreateScreeninForm(){
-        return "CreateScreening";
+        return "screening/create";
     }
 }
