@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class MovieController {
     private final MovieService movieService;
 
@@ -20,13 +20,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/movies")
-    public String movies() {
-        return "movies";
-    }
-
     @PostMapping("/movies")
-    @ResponseBody
     public ResponseEntity<?> createMovie(@RequestBody MovieRequest request) {
         try {
             Movie movie = movieService.createMovie(request);
@@ -40,16 +34,12 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/api/movies")
-    @ResponseBody
+    @GetMapping("/movies")
     public List<MovieResponse> getAllMovies() {
-        return movieService.getAllMovies().stream()
-                .map(MovieResponse::from)
-                .toList();
+        return movieService.getAllMovies();
     }
 
     @PutMapping("/api/movies/{id}")
-    @ResponseBody
     public ResponseEntity<?> updateMovie(@PathVariable Long id, @RequestBody MovieRequest request) {
         try {
             Movie movie = movieService.updateMovie(id, request);

@@ -1,6 +1,7 @@
 package com.example.KinoXP.service;
 
 import com.example.KinoXP.dto.MovieRequest;
+import com.example.KinoXP.dto.MovieResponse;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.repository.MovieRepo;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,8 +39,14 @@ public class MovieService {
         return movieRepo.save(movie);
     }
 
-    public List<Movie> getAllMovies() {
-        return movieRepo.findAll();
+    public List<MovieResponse> getAllMovies() {
+        List<Movie> movies = movieRepo.findAll();
+        List<MovieResponse> responses = new ArrayList<>();
+
+        for (Movie movie : movies) {
+            responses.add(MovieResponse.from(movie));
+        }
+        return responses;
     }
 
     public Movie updateMovie(Long id, MovieRequest request) {
@@ -46,7 +54,6 @@ public class MovieService {
 
         Movie movie = movieRepo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film ikke fundet"));
-
         movie.setTitle(request.title().trim());
         movie.setDescription(request.description().trim());
         movie.setGenre(request.genre());
