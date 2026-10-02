@@ -42,7 +42,6 @@ public class Movie {
         return title;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -91,7 +90,7 @@ public class Movie {
         this.ageLimit = ageLimit;
     }
 
-    public void  setReleaseYear(int releaseYear) {
+    public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 }
