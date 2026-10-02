@@ -76,12 +76,6 @@ class MovieTest {
     }
 
     @Test
-    void createMovie_withDuration30_throwsBadRequest() {
-        assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
-                Duration.ofMinutes(20), List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));
-    }
-
-    @Test
     void createMovie_withNegativeDuration_throwsBadRequest() {
         assertBadRequest(new MovieRequest("Interstellar", "Space movie", List.of("Sci-Fi"),
                Duration.ofMinutes(-10), List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16));

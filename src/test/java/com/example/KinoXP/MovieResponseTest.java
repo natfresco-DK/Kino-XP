@@ -27,6 +27,6 @@ class MovieResponseTest {
 
 
         assertEquals("Interstellar", response.title());
-        assertEquals(169, response.duration());
+        assertEquals(Duration.ofMinutes(169), response.duration());
     }
 }

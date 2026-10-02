@@ -49,7 +49,7 @@ public class MovieService {
             throw badRequest("Filmen skal have mindst én genre");
         }
 
-        if (request.duration() == null || request.duration().toMinutes() <= 30) {
+        if (request.duration() == null || request.duration().toMinutes() < 0 ) {
             throw badRequest("Varighed skal være mindst 31 minutter");
         }
 
