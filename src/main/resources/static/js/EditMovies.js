@@ -7,10 +7,10 @@ async function loadMovies() {
     const list = document.getElementById("movie-list");
     list.innerHTML = "";
 
-    movies.forEach(m => {
+    movies.forEach(movie => {
         const tr = document.createElement("tr");
 
-        [m.title, m.genre.join(", "), m.duration].forEach(text => {
+        [movie.title, movie.description, movie.genre.join(", "), movie.duration, movie.actors.join(", "), movie.releaseYear, movie.ageLimit].forEach(text => {
             const td = document.createElement("td");
             td.textContent = text;
             tr.appendChild(td);
@@ -19,7 +19,7 @@ async function loadMovies() {
         const td = document.createElement("td");
         const btn = document.createElement("button");
         btn.textContent = "Rediger";
-        btn.onclick = () => openEdit(m);
+        btn.onclick = () => openEdit(movie);
         td.appendChild(btn);
         tr.appendChild(td);
 
@@ -27,24 +27,24 @@ async function loadMovies() {
     });
 }
 
-function openEdit(m) {
-    document.getElementById("id").value = m.id;
-    fields.forEach(f => {
-        const value = listFields.includes(f) ? m[f].join(", ") : m[f];
-        document.getElementById(f).value = value;
+function openEdit(movie) {
+    document.getElementById("id").value = movie.id;
+    fields.forEach(field => {
+        const value = listFields.includes(field) ? movie[field].join(", ") : movie[field];
+        document.getElementById(field).value = value;
     });
     document.getElementById("edit-section").hidden = false;
 }
 
-document.getElementById("edit-form").onsubmit = async e => {
-    e.preventDefault();
+document.getElementById("edit-form").onsubmit = async event => {
+    event.preventDefault();
     const id = document.getElementById("id").value;
 
     const movie = {};
-    fields.forEach(f => movie[f] = document.getElementById(f).value);
+    fields.forEach(field => movie[field] = document.getElementById(field).value);
 
-    listFields.forEach(f => {
-        movie[f] = movie[f].split(",").map(s => s.trim()).filter(s => s !== "");
+    listFields.forEach(field => {
+        movie[field] = movie[field].split(",").map(genre => genre.trim()).filter(genre => genre !== "");
     });
     movie.duration = Number(movie.duration);
     movie.releaseYear = Number(movie.releaseYear);
