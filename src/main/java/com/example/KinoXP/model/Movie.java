@@ -42,7 +42,6 @@ public class Movie {
         return title;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -61,10 +60,6 @@ public class Movie {
 
     public List<String> getActors() {
         return actors;
-    }
-
-    public AgeLimit getAgeLimit() {
-        return ageLimit;
     }
 
     public void setId(Long id) {
@@ -93,8 +88,5 @@ public class Movie {
 
     public void  setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
-    }
-    public void setActors(List<String> actors) {
-        this.actors = actors;
     }
 }
