@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ class FilmTest {
         //Act
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,()
                 -> movieService.updateMovie(999L, new MovieRequest(
-                "Interstellar", "Space movie", List.of("Sci-Fi"), 169,
+                "Interstellar", "Space movie", List.of("Sci-Fi"), Duration.ofMinutes(169L),
                 List.of("Matthew McConaughey"), 2014, AgeLimit.FROM_16)));
 
         //Assert
