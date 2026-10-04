@@ -42,7 +42,7 @@ public class MovieService {
         if (isEmptyList(request.genre())) {
             throw badRequest("Filmen skal have mindst én genre");
         }
-        if (request.duration() == null || request.duration().toMinutes() < 0 || request.duration().isZero() ) {
+        if (request.duration() == null || request.duration().isNegative() || request.duration().isZero() ) {
             throw badRequest("Varighed skal være være et positivt tal");
         }
         if (isEmptyList(request.actors())) {
@@ -67,7 +67,7 @@ public class MovieService {
     }
 
     private boolean isEmptyList(List<String> list) {
-        return list == null || list.stream().allMatch(this::isBlank);
+        return list == null || list.isEmpty() || list.stream().allMatch(this::isBlank);
     }
 
     private IllegalArgumentException badRequest(String message) {
