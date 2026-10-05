@@ -45,7 +45,6 @@ document.getElementById("edit-form").onsubmit = async event => {
 
     listFields.forEach(field => {
         movie[field] = movie[field].split(",").map(genre => genre.trim()).filter(genre => genre !== "");
-
     });
 
     if (!res.ok) {

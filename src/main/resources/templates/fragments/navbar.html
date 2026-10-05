@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar">
+
+  <div class="navbar-left">
+
+    <a href="/" class="back-link">
+      <span class="back-icon">←</span>
+      Tilbage til overblik
+    </a>
+    <div class="navbar-divider"></div>
+    <a href="#" class="navbar-link active">Film</a>
+    <a href="#" class="navbar-link">Program</a>
+    <a href="#" class="navbar-link">Om biografen</a>
+  </div>
+
+  <div class="navbar-right">
+    <button class="theme-toggle" id="themeToggle">
+      ☾
+    </button>
+
+    <div class="employee-menu">
+      <span class="employee-icon">♙</span>
+      <span>Medarbejder</span>
+      <span class="dropdown-arrow">⌄</span>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
