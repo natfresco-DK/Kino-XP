@@ -52,7 +52,7 @@ function renderScreenings(screenings) {
             cell.textContent = value;
             row.appendChild(cell);
         });
-        
+
         const actionCell = document.createElement("td");
         const cancelButton = document.createElement("button");
 
@@ -61,14 +61,23 @@ function renderScreenings(screenings) {
 
         cancelButton.addEventListener("click", async () => {
 
-            const response = await fetch("/screenings/" + screening.id, {
-                method: "DELETE"
-            });
+            cancelButton.disabled = true;
 
-            if (response.ok) {
-                row.remove();
-                alert("Forestillingen er aflyst");
-            } else {
+            try {
+                const response = await fetch("/screenings/" + screening.id, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    row.remove();
+                    alert("Forestillingen er aflyst");
+                } else {
+                    cancelButton.disabled = false;
+                    alert("Forestillingen kunne ikke aflyses");
+                }
+
+            } catch (error) {
+                cancelButton.disabled = false;
                 alert("Forestillingen kunne ikke aflyses");
             }
         });
