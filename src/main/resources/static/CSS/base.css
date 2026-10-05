@@ -4,30 +4,18 @@
 
 body {
     margin: 0;
-
     font-family: Arial, sans-serif;
-
     background: #0d1115;
     color: #ffffff;
 }
 
-
-/* =========================
-   NAVBAR
-   ========================= */
-
 .navbar {
-
     height: 70px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 32px;
-
     background: #0d1115;
-
     border-bottom: 1px solid #29323b;
 }
 
@@ -41,6 +29,10 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+#navbar-logo{
+    height: 40px;
 }
 
 .back-link {
@@ -63,82 +55,41 @@ body {
     background: #29323b;
 }
 
-
-/* =========================
-   PAGE LAYOUT
-   ========================= */
-
 .page-layout {
-
     display: flex;
-
     min-height: calc(100vh - 70px);
 }
 
-
-/* =========================
-   SIDEBAR
-   ========================= */
-
 .sidebar {
-
     width: 250px;
-
     flex-shrink: 0;
-
     padding: 28px 14px;
-
     background: #0d1115;
-
     border-right: 1px solid #29323b;
 }
 
 .sidebar h2 {
-
     margin: 0 16px 24px;
-
     font-size: 18px;
-
     color: #ff3045;
 }
 
-
-/* =========================
-   MAIN CONTENT
-   ========================= */
-
 .main-content {
-
     flex: 1;
-
     padding: 32px;
-
     background: #11161b;
 }
 
-
-/* =========================
-   USERSTORY SECTION
-   ========================= */
-
 .content-section {
-
     width: 100%;
-
     min-height: calc(100vh - 134px);
-
     padding: 32px;
-
     background: #0d1115;
-
     border: 1px solid #29323b;
-
     border-radius: 8px;
 }
 
 .content-section h1 {
-
     margin-top: 0;
-
     font-size: 28px;
 }
