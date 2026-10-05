@@ -1,6 +1,7 @@
 package com.example.KinoXP.service;
 
 import com.example.KinoXP.dto.CreateScreeningRequest;
+import com.example.KinoXP.dto.ScreeningResponse;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.model.Screen;
 import com.example.KinoXP.model.Screening;
@@ -10,7 +11,9 @@ import com.example.KinoXP.repository.ScreeningRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,6 +58,32 @@ public class ScreeningService {
         Screening savedScreening = screeningRepo.save(screening);
 
         return Optional.of(savedScreening);
+    }
+    public List<ScreeningResponse> getUpcomingScreenings() {
+        return screeningRepo
+                .findByStartTimeAfterOrderByStartTimeAsc(LocalDateTime.now())
+                .stream()
+                .map(ScreeningResponse::from)
+                .toList();
+    }
+
+    public List<ScreeningResponse> getScreeningsByDate(LocalDate date) {
+        LocalDateTime start = date.atStartOfDay();
+        LocalDateTime end = date.plusDays(1).atStartOfDay();
+
+        return screeningRepo
+                .findByStartTimeGreaterThanEqualAndStartTimeLessThanOrderByStartTimeAsc(start, end)
+                .stream()
+                .map(ScreeningResponse::from)
+                .toList();
+    }
+
+    public List<ScreeningResponse> getUpcomingScreeningsForMovie(Long movieId) {
+        return screeningRepo
+                .findByMovieIdAndStartTimeAfterOrderByStartTimeAsc(movieId, LocalDateTime.now())
+                .stream()
+                .map(ScreeningResponse::from)
+                .toList();
     }
 
     private void validateNoOverlap(Screen screen, LocalDateTime startTime, LocalDateTime endTime) {
