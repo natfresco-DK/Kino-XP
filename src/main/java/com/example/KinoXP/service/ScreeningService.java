@@ -59,6 +59,7 @@ public class ScreeningService {
 
         return Optional.of(savedScreening);
     }
+
     public List<ScreeningResponse> getUpcomingScreenings() {
         return screeningRepo
                 .findByStartTimeAfterOrderByStartTimeAsc(LocalDateTime.now())
@@ -69,6 +70,10 @@ public class ScreeningService {
 
     public List<ScreeningResponse> getScreeningsByDate(LocalDate date) {
         LocalDateTime start = date.atStartOfDay();
+        LocalDateTime now = LocalDateTime.now();
+        if (start.isBefore(now)) {
+            start = now;
+        }
         LocalDateTime end = date.plusDays(1).atStartOfDay();
 
         return screeningRepo

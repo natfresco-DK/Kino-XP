@@ -3,6 +3,19 @@ const dateInput = document.getElementById("date");
 const showAllBtn = document.getElementById("showAllBtn");
 const screeningList = document.getElementById("screeningList");
 const statusMessage = document.getElementById("status");
+const movieStatus = document.getElementById("movieStatus");
+
+let latestRequest = 0;
+
+function todayAsString() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + day;
+}
+
+dateInput.min = todayAsString();
 
 function formatDate(dateTime) {
     return new Date(dateTime).toLocaleDateString("da-DK", {
@@ -45,13 +58,23 @@ function renderScreenings(screenings) {
 }
 
 async function loadScreenings(url) {
+    const requestId = ++latestRequest;
+
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error();
         }
-        renderScreenings(await response.json());
+        const screenings = await response.json();
+
+        if (requestId !== latestRequest) {
+            return;
+        }
+        renderScreenings(screenings);
     } catch (e) {
+        if (requestId !== latestRequest) {
+            return;
+        }
         screeningList.innerHTML = "";
         statusMessage.textContent = "Kunne ikke hente programmet.";
     }
@@ -60,6 +83,9 @@ async function loadScreenings(url) {
 async function loadMovies() {
     try {
         const response = await fetch("/api/movies");
+        if (!response.ok) {
+            throw new Error();
+        }
         const movies = await response.json();
 
         movies.forEach(movie => {
@@ -69,7 +95,7 @@ async function loadMovies() {
             movieSelect.appendChild(option);
         });
     } catch (e) {
-        statusMessage.textContent = "Kunne ikke hente film.";
+        movieStatus.textContent = "Kunne ikke hente film.";
     }
 }
 
