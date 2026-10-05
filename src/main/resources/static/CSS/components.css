@@ -1,110 +1,15 @@
 .screening-page {
-    --accent: #1E90FF;
-    --accent-hover: #ff4d62;
-    --card-bg: #151a21;
-    --field-bg: #0b0e13;
-    --border: #2a313b;
-    --text: #e8ecf1;
-    --muted: #8b95a3;
-    --success: #3ddc84;
-    --error: #ff6b6b;
-
     display: grid;
     grid-template-columns: minmax(320px, 420px) 1fr;
     gap: 24px;
     align-items: start;
 }
 
-.screening-page .content-section {
+.content-section {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 24px;
-    margin: 0;
-}
-
-.movie-edit-page .screening-form-card {
-    grid-column: 1  / -1;
-}
-
-.movie-edit-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.movie-edit-modal[hidden] {
-    display: none;
-}
-
-.movie-edit-modal__content {
-    width: min(520px, 100%);
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
-    padding: 24px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-}
-
-.movie-edit-modal .header {
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.movie-edit-modal__close {
-    flex: 0 0 auto;
-    padding: 0 8px;
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-    font-size: 1.75rem;
-    line-height: 1;
-}
-
-.movie-edit-modal__close:hover {
-    background: transparent;
-    color: var(--text);
-}
-
-.movie-edit-modal form {
-    display: grid;
-    gap: 14px;
-}
-
-.movie-edit-modal form label {
-    display: grid;
-    gap: 6px;
-}
-
-.movie-edit-modal__actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 6px;
-}
-
-.movie-edit-modal__actions button {
-    flex: 1;
-    padding: 12px 20px;
-    border: 0;
-    border-radius: 999px;
-    background: var(--accent);
-    color: #fff;
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.movie-edit-modal__actions button[type="button"] {
-    background: var(--field-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
 }
 
 .screening-page .header h1,
@@ -150,15 +55,17 @@
     border-radius: 10px;
     font: inherit;
     transition: border-color 0.15s, box-shadow 0.15s;
-    color-scheme: dark;
+}
+
+.screening-page textarea {
+    resize: vertical;
+}
+
+.screening-page input::placeholder {
+    color: var(--muted);
 }
 
 .screening-page select {
-    appearance: none;
-    padding-right: 40px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%238b95a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
     cursor: pointer;
 }
 
@@ -167,7 +74,7 @@
 .screening-page textarea:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(255, 45, 70, 0.2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .screening-page .button-group {
@@ -176,38 +83,44 @@
     margin-top: 8px;
 }
 
-.screening-page .button-group button {
+.screening-page button,
+.movie-edit-modal button {
     padding: 12px 20px;
-    border: none;
+    border: 0;
     border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
     font: inherit;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s, transform 0.05s;
 }
 
-.screening-page #submitBtn {
-    flex: 1;
-    background: var(--accent);
-    color: #fff;
-}
-
-.screening-page #submitBtn:hover {
+.screening-page button:hover,
+.movie-edit-modal button:hover {
     background: var(--accent-hover);
 }
 
-.screening-page .button-group button:active {
+.screening-page button:active,
+.movie-edit-modal button:active {
     transform: scale(0.98);
 }
 
-.screening-page .button-group .cancel {
-    background: var(--field-bg);
-    color: var(--text);
-    border: 1px solid var(--border);
+.screening-page .button-group button:first-child {
+    flex: 1;
 }
 
-.screening-page .button-group .cancel:hover {
+.screening-page button.cancel,
+.movie-edit-modal button[type="button"] {
+    background: var(--field-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.screening-page button.cancel:hover,
+.movie-edit-modal button[type="button"]:hover {
     border-color: var(--muted);
+    background: var(--field-bg);
 }
 
 .screening-page .message {
@@ -219,19 +132,19 @@
 
 .screening-page .message:not(:empty) {
     padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.04);
+    background: color-mix(in srgb, var(--text) 4%, transparent);
     border: 1px solid var(--border);
     color: var(--text);
 }
 
 .screening-page .message.success:not(:empty) {
-    background: rgba(61, 220, 132, 0.1);
+    background: color-mix(in srgb, var(--success) 10%, transparent);
     border-color: var(--success);
     color: var(--success);
 }
 
 .screening-page .message.error:not(:empty) {
-    background: rgba(255, 107, 107, 0.1);
+    background: color-mix(in srgb, var(--error) 10%, transparent);
     border-color: var(--error);
     color: var(--error);
 }
@@ -247,13 +160,13 @@
 }
 
 .screening-page th {
-    text-align: left;
     padding: 0 14px 4px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    text-align: left;
     color: var(--muted);
+    font-size: 0.75rem;
     font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .screening-page td {
@@ -278,11 +191,89 @@
 }
 
 .screening-page tbody tr:hover td {
-    background: #11151b;
+    background: var(--surface);
+}
+
+.movie-edit-page .screening-form-card {
+    grid-column: 1 / -1;
+}
+
+.movie-edit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--overlay);
+}
+
+.movie-edit-modal[hidden] {
+    display: none;
+}
+
+.movie-edit-modal__content {
+    width: min(520px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.movie-edit-modal .header {
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.movie-edit-modal__close {
+    flex: 0 0 auto;
+    padding: 0 8px !important;
+    background: transparent !important;
+    color: var(--muted) !important;
+    font-size: 1.75rem !important;
+    line-height: 1;
+}
+
+.movie-edit-modal__close:hover {
+    color: var(--text) !important;
+}
+
+.movie-edit-modal form {
+    display: grid;
+    gap: 14px;
+}
+
+.movie-edit-modal form label {
+    display: grid;
+    gap: 6px;
+}
+
+.movie-edit-modal__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.movie-edit-modal__actions button {
+    flex: 1;
 }
 
 @media (max-width: 1100px) {
     .screening-page {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .screening-page .row {
+        grid-template-columns: 1fr;
+    }
+
+    .movie-edit-modal {
+        padding: 12px;
     }
 }

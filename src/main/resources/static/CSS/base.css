@@ -2,11 +2,25 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+    background: var(--page-bg);
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0d1115;
-    color: #ffffff;
+    background: var(--page-bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.button,
+button,
+input,
+select,
+textarea {
+    font: inherit;
 }
 
 .navbar {
@@ -15,44 +29,62 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
-    background: #0d1115;
-    border-bottom: 1px solid #29323b;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    align-items: center;
 }
 
 .navbar-left {
-    display: flex;
-    align-items: center;
     gap: 32px;
 }
 
 .navbar-right {
-    display: flex;
-    align-items: center;
     gap: 20px;
 }
 
-#navbar-logo{
+#navbar-logo {
     height: 40px;
 }
 
-.back-link {
-    color: #ff3045;
-    text-decoration: none;
-}
-
 .navbar-link {
-    color: #ffffff;
+    color: var(--text);
     text-decoration: none;
 }
 
+.navbar-link:hover,
 .navbar-link.active {
-    color: #ff3045;
+    color: var(--accent);
 }
 
 .navbar-divider {
     width: 1px;
     height: 30px;
-    background: #29323b;
+    background: var(--border);
+}
+
+.theme-toggle {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--field-bg);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+}
+
+.employee-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
 }
 
 .page-layout {
@@ -62,20 +94,42 @@ body {
 
 .main-content {
     flex: 1;
+    min-width: 0;
     padding: 32px;
-    background: #11161b;
+    background: var(--page-bg);
 }
 
 .content-section {
     width: 100%;
     min-height: calc(100vh - 134px);
-    padding: 32px;
-    background: #0d1115;
-    border: 1px solid #29323b;
-    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
 }
 
 .content-section h1 {
     margin-top: 0;
     font-size: 28px;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 0 16px;
+    }
+
+    .navbar-left {
+        gap: 16px;
+    }
+
+    .employee-menu {
+        display: none;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
 }
