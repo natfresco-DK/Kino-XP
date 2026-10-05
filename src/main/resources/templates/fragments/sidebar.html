@@ -8,7 +8,7 @@
 
     <h2>Medarbejderpanel</h2>
     <div class="sidebar-group">
-        <button class="sidebar-item active" onclick="toggleFilmMenu()">
+        <button class="sidebar-item" onclick="toggleFilmMenu()"> <!-- Vi kan bruge ' active' på sidebar-item for bedre visualisering i fremtiden-->
             <span class="sidebar-icon">▣</span>
             <span>Film</span>
             <span class="sidebar-arrow" id="filmArrow">⌄</span>
@@ -16,18 +16,22 @@
 
         <div class="sidebar-submenu" id="filmMenu">
             <a href="/movies/create" class="sidebar-subitem">Opret film</a>
-            <a href="/movies" class="sidebar-subitem">Se film</a>
+            <a href="/movies/edit" class="sidebar-subitem">Se film</a>
         </div>
     </div>
+
+    <div class="sidebar-group">
+        <a href="/screenings/create"><button class="sidebar-item">
+            <span class="sidebar-icon">▣</span>
+            <span>Forestillinger</span>
+        </button></a>
+    </div>
+
+
 
     <a href="/program" class="sidebar-item">
         <span class="sidebar-icon">▣</span>
         <span>Program</span>
-    </a>
-
-    <a href="/scrennings" class="sidebar-item">
-        <span class="sidebar-icon">▣</span>
-        <span>Forestillinger</span>
     </a>
 
     <a href="/settings" class="sidebar-item">
@@ -36,7 +40,6 @@
     </a>
 
 
-    <footer id="footer">tes</footer>
 </aside>
 </body>
 </html>
