@@ -1,6 +1,6 @@
 .sidebar{
     --accent: #1E90FF;
-    --accent-hover: #ff4d62;
+    --accent-hover: #82CAFF; <!-- ff4d62 -->
     --card-bg: #151a21;
     --field-bg: #0b0e13;
     --border: #2a313b;
@@ -8,6 +8,14 @@
     --muted: #8b95a3;
     --success: #3ddc84;
     --error: #ff6b6b;
+}
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    padding: 28px 14px;
+    background: #0d1115;
+    border-right: 1px solid #29323b;
 }
 
 .sidebar-item {
@@ -39,6 +47,11 @@
 .sidebar-icon {
     color: var(--accent);
 }
+.sidebar h2 {
+    margin: 0 16px 24px;
+    font-size: 18px;
+    color: var(--accent);
+}
 
 .sidebar-arrow {
     margin-left: auto;
@@ -63,7 +76,7 @@
 }
 
 .sidebar-subitem:hover {
-    color: #ff3045;
+    color: var(--accent-hover);
 }
 
 #footer{
