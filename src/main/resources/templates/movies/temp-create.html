@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <title>KinoXP - Opret film</title>
+  <link rel="stylesheet" th:href="@{/CSS/base.css}">
+  <link rel="stylesheet" th:href="@{/CSS/sidebar.css}">
+  <link rel="stylesheet" th:href="@{/CSS/create-screening.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="content">
+
+  <h1>Opret film</h1>
+  <p class="subtitle">Indtast filmens oplysninger</p>
+
+  <p id="message"></p>
+
+  <form id="movieForm">
+
+    <div class="form-group">
+      <label for="title">Titel</label>
+      <input type="text" id="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Beskrivelse</label>
+      <textarea id="description" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="genre">Genre / Kategori</label>
+      <input
+              type="text"
+              id="genre"
+              placeholder="Sci-Fi, Action"
+              required>
+    </div>
+
+    <div class="row">
+
+      <div class="form-group small">
+        <label for="ageLimit">Aldersgrænse</label>
+
+        <select id="ageLimit" required>
+          <option value="FROM_16">16 år</option>
+          <option value="FROM_18">18 år</option>
+        </select>
+      </div>
+
+      <div class="form-group small">
+        <label for="duration">Spilletid (antal minutter)</label>
+
+        <input
+                type="number"
+                id="duration"
+                min="1"
+                step="1"
+                required>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="actors">Skuespillere</label>
+
+      <input
+              type="text"
+              id="actors"
+              placeholder="Hayden Christensen, Ewan McGregor, Natalie Portman"
+              required>
+    </div>
+
+    <div class="form-group small">
+      <label for="releaseYear">Udgivelsesår</label>
+
+      <input
+              type="number"
+              id="releaseYear"
+              min="1888"
+              required>
+    </div>
+
+    <div class="buttons">
+
+      <button type="submit">
+        Opret
+      </button>
+
+      <button type="reset">
+        Annuller
+      </button>
+
+    </div>
+
+  </form>
+
+</main>
+<script src="/JS/script.js"></script>
+
+</body>
+</html>

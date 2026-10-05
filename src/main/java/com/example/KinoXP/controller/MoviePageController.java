@@ -8,6 +8,12 @@ public class MoviePageController {
 
     @GetMapping("/movies/edit")
     public String moviesPage() {
-        return "EditMovies";
+        return "movies/edit";
     }
+
+    @GetMapping("/movies/create")
+    public String moviesCreatePage() {
+        return "movies/create";
+    }
+
 }
