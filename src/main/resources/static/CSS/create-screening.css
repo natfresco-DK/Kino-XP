@@ -1,0 +1,204 @@
+.screening-page {
+    --accent: #ff2d46;
+    --accent-hover: #ff4d62;
+    --card-bg: #151a21;
+    --field-bg: #0b0e13;
+    --border: #2a313b;
+    --text: #e8ecf1;
+    --muted: #8b95a3;
+    --success: #3ddc84;
+    --error: #ff6b6b;
+
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.screening-page .content-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 0;
+}
+
+.screening-page .header h1,
+.screening-page .header h2 {
+    margin: 0 0 20px;
+    font-size: 1.25rem;
+    color: var(--text);
+}
+
+.screening-page .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.screening-page .form-row,
+.screening-page .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.screening-page label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.screening-page .req {
+    color: var(--accent);
+}
+
+.screening-page input,
+.screening-page textarea,
+.screening-page select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    background: var(--field-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    color-scheme: dark;
+}
+
+.screening-page select {
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%238b95a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+}
+
+.screening-page select:focus,
+.screening-page input:focus,
+.screening-page textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 45, 70, 0.2);
+}
+
+.screening-page .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.screening-page .button-group button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+}
+
+.screening-page #submitBtn {
+    flex: 1;
+    background: var(--accent);
+    color: #fff;
+}
+
+.screening-page #submitBtn:hover {
+    background: var(--accent-hover);
+}
+
+.screening-page .button-group button:active {
+    transform: scale(0.98);
+}
+
+.screening-page .button-group .cancel {
+    background: var(--field-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.screening-page .button-group .cancel:hover {
+    border-color: var(--muted);
+}
+
+.screening-page .message {
+    margin: 16px 0 0;
+    padding: 0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.screening-page .message:not(:empty) {
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.screening-page .message.success:not(:empty) {
+    background: rgba(61, 220, 132, 0.1);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.screening-page .message.error:not(:empty) {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: var(--error);
+    color: var(--error);
+}
+
+.screening-page .table-container {
+    overflow-x: auto;
+}
+
+.screening-page table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.screening-page th {
+    text-align: left;
+    padding: 0 14px 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.screening-page td {
+    padding: 14px;
+    background: var(--field-bg);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.screening-page td:first-child {
+    border-left: 3px solid var(--accent);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: 600;
+}
+
+.screening-page td:last-child {
+    border-right: 1px solid var(--border);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.screening-page tbody tr:hover td {
+    background: #11151b;
+}
+
+@media (max-width: 1100px) {
+    .screening-page {
+        grid-template-columns: 1fr;
+    }
+}
