@@ -95,8 +95,8 @@ public class MovieService {
 
         int currentYear = Year.now().getValue();
 
-        if (request.releaseYear() < 1900 || request.releaseYear() > currentYear + 5) {
-            throw badRequest("Udgivelsesår skal være mellem 1900 og " + (currentYear + 5));
+        if (request.releaseYear() < 1888 || request.releaseYear() > currentYear + 5) {
+            throw badRequest("Udgivelsesår skal være mellem 1888 og " + (currentYear + 5));
         }
 
         if (request.ageLimit() == null) {
