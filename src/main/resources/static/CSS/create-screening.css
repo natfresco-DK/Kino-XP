@@ -23,6 +23,90 @@
     margin: 0;
 }
 
+.movie-edit-page .screening-form-card {
+    grid-column: 1  / -1;
+}
+
+.movie-edit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.movie-edit-modal[hidden] {
+    display: none;
+}
+
+.movie-edit-modal__content {
+    width: min(520px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.movie-edit-modal .header {
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.movie-edit-modal__close {
+    flex: 0 0 auto;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.movie-edit-modal__close:hover {
+    background: transparent;
+    color: var(--text);
+}
+
+.movie-edit-modal form {
+    display: grid;
+    gap: 14px;
+}
+
+.movie-edit-modal form label {
+    display: grid;
+    gap: 6px;
+}
+
+.movie-edit-modal__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.movie-edit-modal__actions button {
+    flex: 1;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.movie-edit-modal__actions button[type="button"] {
+    background: var(--field-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
 .screening-page .header h1,
 .screening-page .header h2 {
     margin: 0 0 20px;

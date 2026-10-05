@@ -12,7 +12,7 @@
 
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <main class="main-content screening-page">
+    <main class="main-content screening-page movie-edit-page">
         <section class="content-section screening-form-card">
             <div class="header">
                 <h1>Film</h1>
@@ -36,31 +36,35 @@
         </section>
 
 
-        <section class="content-section screening-list-card" id="edit-section" hidden>
-            <div class="header">
-                <h2>Rediger film</h2>
-            </div>
+        <section class="movie-edit-modal" id="edit-section" hidden role="dialog"
+                 aria-modal="true" aria-labelledby="edit-title">
+            <div class="movie-edit-modal__content">
+                <div class="header">
+                    <h2 id="edit-title">Rediger film</h2>
+                    <button type="button" class="movie-edit-modal__close" id="cancel"
+                            aria-label="Luk redigering"></button>
+                </div>
 
-            <div class="table-container">
                 <form id="edit-form">
                     <input type="hidden" id="id">
-                    <label>Titel <input id="title" required></label><br>
-                    <label>Beskrivelse <input id="description"></label><br>
-                    <label>Genre <input id="genre"></label><br>
-                    <label>Varighed i minutter <input id="duration" type="number" min="0"></label><br>
-                    <label>Skuespillere <input id="actors"></label><br>
-                    <label>Udgivelsesår <input id="releaseYear" type="number"></label><br>
+                    <label>Titel <input id="title" required></label>
+                    <label>Beskrivelse <input id="description"></label>
+                    <label>Genre <input id="genre"></label>
+                    <label>Varighed i minutter <input id="duration" type="number" min="0"></label>
+                    <label>Skuespillere <input id="actors"></label>
+                    <label>Udgivelsesår <input id="releaseYear" type="number"></label>
                     <label>Aldersgrænse
                         <select id="ageLimit">
                             <option value="FROM_16">16+</option>
                             <option value="FROM_18">18+</option>
                         </select>
-                    </label><br>
-                    <button type="submit">Gem</button>
-                    <button type="button" id="cancel">Annuller</button>
+                    </label>
+                    <div class="movie-edit-modal__actions">
+                        <button type="submit">Gem</button>
+                        <button type="button" id="cancel-form">Annuller</button>
+                    </div>
                 </form>
             </div>
-
         </section>
     </main>
 
