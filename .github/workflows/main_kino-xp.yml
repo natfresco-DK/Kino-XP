@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '25'
-          distribution: 'linux'
+          distribution: 'ubuntu'
 
       - name: Build with Maven
         run: mvn clean install
