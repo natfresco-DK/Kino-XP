@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Se Film</title>
+    <link rel="stylesheet" href="/CSS/Stylesheet.css">
 </head>
 <body>
+<div th:replace="~{Fragments/Sidebar :: sidebar}"></div>
+<div class="main-content">
+    <div class="header">
+        <h1>Film</h1>
+    </div>
 
-<h1>Film</h1>
-
-<table border="1">
+<table >
     <thead>
     <tr>
         <th>Titel</th>
@@ -44,7 +48,7 @@
         <button type="button" id="cancel">Annuller</button>
     </form>
 </div>
-
+</div>
 <script src="/js/EditMovies.js"></script>
 
 </body>
