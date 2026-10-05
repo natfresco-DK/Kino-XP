@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MoviePageController {
 
-
-    @GetMapping("/movies")
-    public String movies() {
-        return "movies";
+    @GetMapping("/movies/edit")
+    public String moviesPage() {
+        return "EditMovies";
     }
 }

@@ -11,7 +11,7 @@ public record MovieResponse(
         String title,
         String description,
         List<String> genre,
-        Duration duration,
+        Long durationMinutes,
         List<String> actors,
         int releaseYear,
         AgeLimit ageLimit
@@ -22,7 +22,7 @@ public record MovieResponse(
                 movie.getTitle(),
                 movie.getDescription(),
                 movie.getGenre(),
-                movie.getDuration(),
+                movie.getDuration().toMinutes(),
                 movie.getActors(),
                 movie.getReleaseYear(),
                 movie.getAgeLimit()

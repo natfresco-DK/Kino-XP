@@ -1,6 +1,5 @@
 package com.example.KinoXP.dto;
 
-import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.utils.AgeLimit;
 
 import java.time.Duration;

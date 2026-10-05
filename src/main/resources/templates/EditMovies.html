@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Se Film</title>
+    <link rel="stylesheet" href="/CSS/Stylesheet.css">
+</head>
+<body>
+<div th:replace="~{Fragments/Sidebar :: sidebar}"></div>
+<div class="main-content">
+    <div class="header">
+        <h1>Film</h1>
+    </div>
+
+<table >
+    <thead>
+    <tr>
+        <th>Titel</th>
+        <th>Beskrivelse</th>
+        <th>Genre</th>
+        <th>Varighed (min)</th>
+        <th>Skuespillere</th>
+        <th>Udgivelses år</th>
+        <th>Aldersgrænse</th>
+        <th>Handling</th>
+    </tr>
+    </thead>
+    <tbody id="movie-list"></tbody>
+</table>
+
+<div id="edit-section" hidden>
+    <h2>Rediger film</h2>
+    <form id="edit-form">
+        <input type="hidden" id="id">
+        <label>Titel <input id="title" required></label><br>
+        <label>Beskrivelse <input id="description"></label><br>
+        <label>Genre <input id="genre"></label><br>
+        <label>Varighed i minutter <input id="duration" type="number" min="0"></label><br>
+        <label>Skuespillere <input id="actors"></label><br>
+        <label>Udgivelsesår <input id="releaseYear" type="number"></label><br>
+        <label>Aldersgrænse
+            <select id="ageLimit">
+                <option value="FROM_16">16+</option>
+                <option value="FROM_18">18+</option>
+            </select>
+        </label><br>
+        <button type="submit">Gem</button>
+        <button type="button" id="cancel">Annuller</button>
+    </form>
+</div>
+</div>
+<script src="/js/EditMovies.js"></script>
+
+</body>
+</html>

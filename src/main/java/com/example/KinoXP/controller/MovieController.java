@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,7 +18,7 @@ public class MovieController {
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
-    
+
     @PostMapping("/movies")
     public ResponseEntity<?> createMovie(@RequestBody MovieRequest request) {
         try {
@@ -25,6 +26,23 @@ public class MovieController {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(MovieResponse.from(movie));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/api/movies")
+    public List<MovieResponse> getAllMovies() {
+        return movieService.getAllMovies();
+    }
+
+    @PutMapping("/api/movies/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable Long id, @RequestBody MovieRequest request) {
+        try {
+            Movie movie = movieService.updateMovie(id, request);
+            return ResponseEntity.ok(MovieResponse.from(movie));
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()

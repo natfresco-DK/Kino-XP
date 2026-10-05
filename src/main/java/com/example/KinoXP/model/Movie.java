@@ -93,4 +93,8 @@ public class Movie {
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
 }
