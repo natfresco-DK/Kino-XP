@@ -90,7 +90,7 @@ public class Movie {
         this.ageLimit = ageLimit;
     }
 
-    public void  setReleaseYear(int releaseYear) {
+    public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 

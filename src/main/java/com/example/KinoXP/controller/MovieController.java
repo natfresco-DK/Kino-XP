@@ -6,7 +6,6 @@ import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.service.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
