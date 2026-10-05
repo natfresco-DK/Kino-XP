@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title>Program | KinoXP</title>
+    <link rel="stylesheet" th:href="@{/CSS/base.css}">
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/CSS/create-screening.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="page-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main-content screening-page">
+        <section class="content-section screening-form-card">
+            <div class="header">
+                <h1>Program</h1>
+            </div>
+
+            <div class="form-container">
+                <form id="filterForm">
+                    <div class="form-group">
+                        <label for="movie">Film</label>
+                        <select id="movie" name="movie">
+                            <option value="">Alle film</option>
+                        </select>
+                        <p class="message" id="movieStatus" role="status"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Dato</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" id="showAllBtn" class="cancel">Vis alle kommende</button>
+                    </div>
+                </form>
+            </div>
+            <p class="message" id="status" role="status"></p>
+        </section>
+
+        <section class="content-section screening-list-card">
+            <div class="header">
+                <h2>Forestillinger</h2>
+            </div>
+
+            <div class="table-container">
+                <table id="screeningsTable">
+                    <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Tid</th>
+                        <th>Film</th>
+                        <th>Sal</th>
+                    </tr>
+                    </thead>
+                    <tbody id="screeningList">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<script th:src="@{/JS/sidebar.js}"></script>
+<script th:src="@{/JS/Program.js}"></script>
+</body>
+</html>

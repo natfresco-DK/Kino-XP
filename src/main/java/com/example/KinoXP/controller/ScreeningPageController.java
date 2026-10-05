@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ScreeningPageController {
 
     @GetMapping("/screenings/create")
-    public String showCreateScreeninForm(){
+    public String showCreateScreeninForm() {
         return "screening/create";
+    }
+
+    @GetMapping("/program")
+    public String showProgram() {
+        return "Program";
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
@@ -22,4 +23,12 @@ public interface ScreeningRepo extends JpaRepository<Screening,Long> {
             @Param("screen") Screen screen,
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime);
+
+    List<Screening> findByStartTimeAfterOrderByStartTimeAsc(LocalDateTime now);
+
+    List<Screening> findByStartTimeGreaterThanEqualAndStartTimeLessThanOrderByStartTimeAsc(
+            LocalDateTime start, LocalDateTime end);
+
+    List<Screening> findByMovieIdAndStartTimeAfterOrderByStartTimeAsc(
+            Long movieId, LocalDateTime now);
 }
