@@ -17,7 +17,7 @@ async function getJSON(url){
 
 async function loadMovies(){
     try{
-    const movies = await getJSON("/movies");
+    const movies = await getJSON("/api/movies");
     movies.forEach(movie => {
         const option = document.createElement("option");
         option.value = movie.id;
