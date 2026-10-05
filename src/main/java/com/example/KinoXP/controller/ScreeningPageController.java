@@ -15,4 +15,9 @@ public class ScreeningPageController {
     public String showProgram() {
         return "Program";
     }
+
+    @GetMapping("/screenings/cancel")
+    public String showCancelScreeningPage() {
+        return "screening/CancelScreening";
+    }
 }

@@ -62,4 +62,14 @@ public class ScreeningController {
         List<ScreeningResponse> screenings = screeningService.getUpcomingScreeningsForMovie(movieId);
         return ResponseEntity.ok(screenings);
     }
+
+    @DeleteMapping("/screenings/{id}")
+    public ResponseEntity<Void> cancelScreening(@PathVariable Long id) {
+        try {
+            screeningService.cancelScreening(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
