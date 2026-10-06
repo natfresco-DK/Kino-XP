@@ -23,7 +23,7 @@ public class KioskProductService {
 
         String name = request.product().trim();
 
-        if (kioskProductRepo.findByProduct(name).isPresent()) {
+        if (kioskProductRepo.existsByProductIgnoreCase(name)) {
             throw new IllegalArgumentException("Produktet findes allerede");
         }
 
@@ -45,6 +45,10 @@ public class KioskProductService {
 
         if (request.price() == null || request.price().compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Prisen skal være større end 0");
+        }
+
+        if (request.price().stripTrailingZeros().scale() > 2) {
+            throw new IllegalArgumentException("Prisen må højst have 2 decimaler");
         }
     }
 }

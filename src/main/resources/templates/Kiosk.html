@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: common-head}"></th:block>
+    <title>Kiosk | KinoXP</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="page-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main-content screening-page">
+        <section class="content-section screening-form-card">
+            <div class="header">
+                <h1>Kiosk</h1>
+            </div>
+
+            <div class="form-container">
+                <h2>Sælg vare</h2>
+                <form id="saleForm">
+                    <div class="form-group">
+                        <label for="product">Vare</label>
+                        <select id="product" name="product" required>
+                            <option value="">Vælg vare</option>
+                        </select>
+                        <p class="message" id="productStatus" role="status"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Antal</label>
+                        <input type="number" id="quantity" name="quantity" min="1" step="1" value="1" required>
+                    </div>
+
+                    <p id="total">Total: 0,00 kr.</p>
+
+                    <div class="button-group">
+                        <button type="submit">Registrér salg</button>
+                    </div>
+                </form>
+                <p class="message" id="saleStatus" role="status"></p>
+            </div>
+
+            <div class="form-container">
+                <h2>Opret vare</h2>
+                <form id="productForm">
+                    <div class="form-group">
+                        <label for="productName">Navn</label>
+                        <input type="text" id="productName" name="productName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Pris (kr.)</label>
+                        <input type="number" id="price" name="price" min="0.01" step="0.01" required>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit">Opret vare</button>
+                    </div>
+                </form>
+                <p class="message" id="createStatus" role="status"></p>
+            </div>
+        </section>
+
+        <section class="content-section screening-list-card">
+            <div class="header">
+                <h2>Seneste salg</h2>
+            </div>
+
+            <div class="table-container">
+                <table id="salesTable">
+                    <thead>
+                    <tr>
+                        <th>Tidspunkt</th>
+                        <th>Vare</th>
+                        <th>Antal</th>
+                        <th>Stykpris</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="saleList">
+                    </tbody>
+                </table>
+            </div>
+            <p class="message" id="listStatus" role="status"></p>
+        </section>
+    </main>
+
+</div>
+
+<script th:src="@{/JS/sidebar.js}"></script>
+<script th:src="@{/JS/Kiosk.js}"></script>
+</body>
+</html>

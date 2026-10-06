@@ -1,6 +1,5 @@
 package com.example.KinoXP.service;
 
-
 import com.example.KinoXP.dto.CreateKioskSaleRequest;
 import com.example.KinoXP.dto.KioskSaleResponse;
 import com.example.KinoXP.model.KioskProduct;
@@ -36,7 +35,7 @@ public class KioskSaleService {
     }
 
     public List<KioskSaleResponse> getAllSales() {
-        return kioskSaleRepo.findAll()
+        return kioskSaleRepo.findAllByOrderBySaleTimeDesc()
                 .stream()
                 .map(KioskSaleResponse::from)
                 .toList();
@@ -49,7 +48,4 @@ public class KioskSaleService {
         return kioskProductRepo.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Produkt ikke fundet"));
     }
-
 }
-
-

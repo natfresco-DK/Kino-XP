@@ -16,8 +16,13 @@ public class KioskSale {
     @JoinColumn(name = "product_id")
     private KioskProduct product;
 
+    @Column(nullable = false)
     private int quantity;
+
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
+
+    @Column(nullable = false)
     private LocalDateTime saleTime;
 
     public KioskSale() {
