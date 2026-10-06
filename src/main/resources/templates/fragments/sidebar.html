@@ -5,7 +5,9 @@
     <h2>Medarbejderpanel</h2>
     <div class="sidebar-group">
         <button class="sidebar-item" onclick="toggleFilmMenu()"> <!-- Vi kan bruge ' active' på sidebar-item for bedre visualisering i fremtiden-->
-            <span class="sidebar-icon">▣</span>
+            <span class="sidebar-icon">
+                <i class="fa-solid fa-video"></i>
+            </span>
             <span>Film</span>
             <span class="sidebar-arrow" id="filmArrow">⌄</span>
         </button>
@@ -17,22 +19,26 @@
     </div>
 
     <a href="/screenings/create" class="sidebar-item">
-        <span class="sidebar-icon">▣</span>
+        <span class="sidebar-icon">
+            <i class="fa fa-film" aria-hidden="true"></i>
+
+        </span>
         <span>Forestillinger</span>
     </a>
 
-
-
     <a href="/program" class="sidebar-item">
-        <span class="sidebar-icon">▣</span>
+        <span class="sidebar-icon">
+            <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+        </span>
         <span>Program</span>
     </a>
 
     <a href="/settings" class="sidebar-item">
-        <span class="sidebar-icon">⚙</span>
+        <span class="sidebar-icon">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+        </span>
         <span>Indstillinger</span>
     </a>
-
 
 </aside>
 </body>
