@@ -1,5 +1,6 @@
 package com.example.KinoXP;
 
+import com.example.KinoXP.utils.ScreenType;
 import com.example.KinoXP.model.Movie;
 import com.example.KinoXP.model.Screen;
 import com.example.KinoXP.model.Screening;
@@ -40,8 +41,8 @@ class ScreeningRepoTest {
     void setUp() {
         interstellar = movieRepo.save(newMovie("Interstellar"));
         dune = movieRepo.save(newMovie("Dune"));
-        sal1 = screenRepo.save(new Screen("Sal 1"));
-        sal2 = screenRepo.save(new Screen("Sal 2"));
+        sal1 = screenRepo.save(new Screen("Sal 1", ScreenType.SMALL));
+        sal2 = screenRepo.save(new Screen("Sal 2", ScreenType.LARGE));
     }
 
     @Test
