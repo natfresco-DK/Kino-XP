@@ -4,6 +4,49 @@ const screenSelect = document.querySelector("#screen");
 const startTime = document.querySelector("#startTime");
 const endTime = document.querySelector("#endTime");
 const statusMessage = document.querySelector("#status");
+const screeningList = document.querySelector("#screeningList");
+
+function formatDate(dateTime) {
+    return new Date(dateTime).toLocaleDateString("da-DK", {
+        weekday: "long", day: "numeric", month: "long"
+    });
+}
+
+function formatTime(dateTime) {
+    return new Date(dateTime).toLocaleTimeString("da-DK", {
+        hour: "2-digit", minute: "2-digit"
+    });
+}
+
+function renderScreenings(screenings) {
+    screeningList.innerHTML = "";
+
+    screenings.forEach(screening => {
+        const row = document.createElement("tr");
+        [
+            formatDate(screening.startTime),
+            formatTime(screening.startTime) + " – " + formatTime(screening.endTime),
+            screening.movieTitle,
+            screening.screenName
+        ].forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+        screeningList.appendChild(row);
+    });
+}
+
+async function loadScreenings() {
+    try {
+        const screenings = await getJSON("/screenings");
+        renderScreenings(screenings);
+    } catch (error) {
+        console.error(error);
+        screeningList.innerHTML = "";
+        statusMessage.textContent = "Kan ikke hente forestillinger";
+    }
+}
 
 async function getJSON(url){
     const response = await fetch(url);
@@ -47,6 +90,7 @@ async function loadScreens(){
 
 loadScreens();
 loadMovies();
+loadScreenings();
 
 form.addEventListener("submit", async event => {
     event.preventDefault();
@@ -84,6 +128,7 @@ form.addEventListener("submit", async event => {
 
         statusMessage.textContent = "Forestilling oprettet";
         form.reset();
+        loadScreenings();
 
     } catch (error) {
         console.error(error);
