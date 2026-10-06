@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
-public class CanselScreeningAndDelete {
+public class CancelScreeningAndDelete {
 
     @Test
     void cancelScreeningDeletesScreening() {

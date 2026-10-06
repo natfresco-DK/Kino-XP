@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <th:block th:replace="~{fragments/head :: common-head}"></th:block>
     <title>Opret forestilling | KinoXP</title>
-    <link rel="stylesheet" th:href="@{/CSS/base.css}">
-    <link rel="stylesheet" th:href="@{/CSS/sidebar.css}">
-    <link rel="stylesheet" th:href="@{/CSS/create-screening.css}">
-
 </head>
 <body>
 
@@ -54,29 +50,26 @@
             <p class="message" id="status" role="status"></p>
         </section>
 
-
         <section class="content-section screening-list-card">
             <div class="header">
-                <h2>Eksisterende forestillinger</h2>
+                <h2>Forestillinger</h2>
             </div>
 
             <div class="table-container">
                 <table id="screeningsTable">
                     <thead>
                     <tr>
+                        <th>Dato</th>
+                        <th>Tid</th>
                         <th>Film</th>
                         <th>Sal</th>
-                        <th>Starttidspunkt</th>
-                        <th>Sluttidspunkt</th>
-                        <th>Handlinger</th>
+                        <th>Handling</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <!-- Screening rows will be populated here -->
+                    <tbody id="screeningList">
                     </tbody>
                 </table>
             </div>
-
         </section>
     </main>
 
