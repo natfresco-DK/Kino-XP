@@ -30,7 +30,8 @@ async function loadMovies() {
 function openEdit(movie) {
     document.getElementById("id").value = movie.id;
     fields.forEach(field => {
-        const value = listFields.includes(field) ? movie[field].join(", ") : movie[field];
+        const movieField = field === "duration" ? "durationMinutes" : field;
+        const value = listFields.includes(field) ? movie[movieField].join(", ") : movie[movieField];
         document.getElementById(field).value = value;
     });
     document.getElementById("edit-section").hidden = false;
