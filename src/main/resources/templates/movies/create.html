@@ -2,13 +2,8 @@
 <html lang="da">
 
 <head>
-    <meta charset="UTF-8">
-    <title>KinoXP - Opret film</title>
-    <link rel="stylesheet" th:href="@{/CSS/base.css}">
-    <link rel="stylesheet" th:href="@{/CSS/sidebar.css}">
-    <link rel="stylesheet" th:href="@{/CSS/create-screening.css}">
-</head>
-
+    <th:block th:replace="~{fragments/head :: common-head}"></th:block>
+    <title>KinoXP - Opret film</title></head>
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -71,7 +66,7 @@
                     </div>
 
                     <div class="button-group">
-                        <button type="submit" id="submitBtn">Opret forestilling</button>
+                        <button type="submit" id="submitBtn">Opret film</button>
                         <button type="reset" id="resetBtn" class="cancel">Annuller</button>
                     </div>
 
