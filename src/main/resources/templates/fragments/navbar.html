@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
 <nav th:fragment="navbar" class="navbar">
-
   <div class="navbar-left">
-
-    <a href="/" class="back-link">
-      <span class="back-icon">←</span>
-      Tilbage til overblik
-    </a>
+    <img th:src="@{/images/logo.png}" id="navbar-logo" alt="logo">
     <div class="navbar-divider"></div>
-    <a href="#" class="navbar-link active">Film</a>
-    <a href="#" class="navbar-link">Program</a>
-    <a href="#" class="navbar-link">Om biografen</a>
+    <a href="/movies/create" class="navbar-link">Film</a> <!-- Vi kan bruge ' active' på navbar-link for bedre visualisering i fremtiden-->
+    <a href="/screenings/create" class="navbar-link">Forestillinger</a>
+    <a href="/program" class="navbar-link">Program</a>
   </div>
 
   <div class="navbar-right">
-    <button class="theme-toggle" id="themeToggle">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Skift tema">
       ☾
     </button>
 

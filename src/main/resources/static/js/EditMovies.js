@@ -30,10 +30,15 @@ async function loadMovies() {
 function openEdit(movie) {
     document.getElementById("id").value = movie.id;
     fields.forEach(field => {
-        const value = listFields.includes(field) ? movie[field].join(", ") : movie[field];
+        const movieField = field === "duration" ? "durationMinutes" : field;
+        const value = listFields.includes(field) ? movie[movieField].join(", ") : movie[movieField];
         document.getElementById(field).value = value;
     });
     document.getElementById("edit-section").hidden = false;
+}
+
+function closeEdit() {
+    document.getElementById("edit-section").hidden = true;
 }
 
 document.getElementById("edit-form").onsubmit = async event => {
@@ -42,9 +47,16 @@ document.getElementById("edit-form").onsubmit = async event => {
 
     const movie = {};
     fields.forEach(field => movie[field] = document.getElementById(field).value);
+    movie.duration = `PT${movie.duration}M`;
 
     listFields.forEach(field => {
         movie[field] = movie[field].split(",").map(genre => genre.trim()).filter(genre => genre !== "");
+    });
+
+    const res = await fetch(`/api/movies/${id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(movie)
     });
 
     if (!res.ok) {
@@ -53,12 +65,17 @@ document.getElementById("edit-form").onsubmit = async event => {
         return;
     }
 
-    document.getElementById("edit-section").hidden = true;
+    closeEdit();
     loadMovies();
 };
 
-document.getElementById("cancel").onclick = () => {
-    document.getElementById("edit-section").hidden = true;
+document.getElementById("cancel").onclick = closeEdit;
+document.getElementById("cancel-form").onclick = closeEdit;
+document.getElementById("edit-section").onclick = event => {
+    if (event.target.id === "edit-section") closeEdit();
 };
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeEdit();
+});
 
 loadMovies();
