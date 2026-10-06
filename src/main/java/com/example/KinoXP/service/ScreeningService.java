@@ -115,4 +115,16 @@ public class ScreeningService {
                         new IllegalArgumentException("Screen not found")
                 );
     }
+
+    public void cancelScreening(Long id) {
+        Screening screening = screeningRepo.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Screening not found")
+                );
+        screeningRepo.delete(screening);
+    }
+
+    public List<Screening> getAllScreenings() {
+        return screeningRepo.findAll();
+    }
 }

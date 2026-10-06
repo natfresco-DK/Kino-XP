@@ -53,6 +53,37 @@ function renderScreenings(screenings) {
             row.appendChild(cell);
         });
 
+        const actionCell = document.createElement("td");
+        const cancelButton = document.createElement("button");
+
+        cancelButton.textContent = "Aflys";
+        cancelButton.classList.add("cancel");
+
+        cancelButton.addEventListener("click", async () => {
+
+            cancelButton.disabled = true;
+
+            try {
+                const response = await fetch("/screenings/" + screening.id, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    row.remove();
+                    alert("Forestillingen er aflyst");
+                } else {
+                    cancelButton.disabled = false;
+                    alert("Forestillingen kunne ikke aflyses");
+                }
+
+            } catch (error) {
+                cancelButton.disabled = false;
+                alert("Forestillingen kunne ikke aflyses");
+            }
+        });
+        actionCell.appendChild(cancelButton);
+        row.appendChild(actionCell);
+
         screeningList.appendChild(row);
     });
 }
