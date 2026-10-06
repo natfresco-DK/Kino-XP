@@ -90,4 +90,17 @@ class KioskProductServiceTest {
         assertEquals(expectedMessage, exception.getMessage());
         verify(kioskProductRepo, never()).save(any());
     }
+    @Test
+    void createProduct_nameTooLong_throws() {
+        String longName = "a".repeat(256);
+
+        assertBadRequest(new KioskProductRequest(longName, new BigDecimal("45.00")),
+                "Produktnavnet må højst være 255 tegn");
+    }
+
+    @Test
+    void createProduct_priceTooHigh_throws() {
+        assertBadRequest(new KioskProductRequest("Cola", new BigDecimal("100000000.00")),
+                "Prisen er for høj");
+    }
 }
