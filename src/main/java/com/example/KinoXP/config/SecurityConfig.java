@@ -23,13 +23,21 @@ public class SecurityConfig {
                         .requestMatchers("/CSS/**", "/JS/**", "/images/**", "/error").permitAll()
                         .requestMatchers("/program", "/movies/**", "/api/movies", "/api/movies/**")
                         .hasAnyRole("ADMIN", "MOVIE_OPERATOR")
-
                         .requestMatchers(HttpMethod.GET, "/screenings", "/screenings/date/**", "/screenings/movie/**")
                         .hasAnyRole("ADMIN", "MOVIE_OPERATOR")
+                        .requestMatchers("/kiosk/**")
+                        .hasAnyRole("ADMIN", "RESERVATION")
                         .anyRequest().hasRole("ADMIN")
                 )
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/program", true)
+                        .successHandler((request, response, authentication) -> {
+                            if (authentication.getAuthorities().stream()
+                                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_RESERVATION"))) {
+                                response.sendRedirect("/kiosk/sell");
+                            } else {
+                                response.sendRedirect("/program");
+                            }
+                        })
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -51,7 +59,9 @@ public class SecurityConfig {
             @Value("${kino.admin.username}") String username,
             @Value("${kino.admin.password}") String password,
             @Value("${kino.movie-operator.username}") String movieOperatorUsername,
-            @Value("${kino.movie-operator.password}") String movieOperatorPassword
+            @Value("${kino.movie-operator.password}") String movieOperatorPassword,
+            @Value("${kino.reservation.username}") String reservationUsername,
+            @Value("${kino.reservation.password}") String reservationPassword
     ) {
         UserDetails admin = User.withUsername(username)
                 .password(passwordEncoder.encode(password))
@@ -63,6 +73,11 @@ public class SecurityConfig {
                 .roles("MOVIE_OPERATOR")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin, movieOperator);
+        UserDetails reservation = User.withUsername(reservationUsername)
+                .password(passwordEncoder.encode(reservationPassword))
+                .roles("RESERVATION")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, movieOperator, reservation);
     }
 }

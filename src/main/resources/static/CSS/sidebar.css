@@ -1,6 +1,9 @@
 .sidebar {
     width: 250px;
     flex-shrink: 0;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
     padding: 28px 14px;
     background: var(--surface);
     border-right: 1px solid var(--border);
@@ -65,6 +68,22 @@
 
 .sidebar-subitem:hover {
     color: var(--accent-hover);
+}
+
+.sidebar-account {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+}
+
+.sidebar-role {
+    margin: 0 15px 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.sidebar-logout .sidebar-item {
+    margin-bottom: 0;
 }
 
 #footer{
