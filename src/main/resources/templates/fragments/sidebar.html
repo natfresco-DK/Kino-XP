@@ -55,6 +55,16 @@
         <span>Indstillinger</span>
     </a>
 
+    <form th:action="@{/logout}" method="post" class="sidebar-logout">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit" class="sidebar-item">
+            <span class="sidebar-icon">
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+            </span>
+            <span>Log ud</span>
+        </button>
+    </form>
+
 </aside>
 </body>
 </html>
