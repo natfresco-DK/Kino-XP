@@ -9,7 +9,7 @@ function toggleFilmMenu() {
 }
 
 function toggleKioskMenu() {
-//
+
     const menu = document.querySelector("#kioskMenu");
     const arrow = document.querySelector("#kioskArrow");
 
