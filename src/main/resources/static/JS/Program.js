@@ -18,7 +18,6 @@ function todayAsString() {
 
 dateInput.min = todayAsString();
 
-
 function formatDate(dateTime) {
     return new Date(dateTime).toLocaleDateString("da-DK", {
         weekday: "long",
@@ -27,7 +26,6 @@ function formatDate(dateTime) {
     });
 }
 
-
 function formatTime(dateTime) {
     return new Date(dateTime).toLocaleTimeString("da-DK", {
         hour: "2-digit",
@@ -35,9 +33,7 @@ function formatTime(dateTime) {
     });
 }
 
-
 function renderScreenings(screenings) {
-
     screeningList.innerHTML = "";
 
     if (screenings.length === 0) {
@@ -48,7 +44,6 @@ function renderScreenings(screenings) {
     statusMessage.textContent = "";
 
     screenings.forEach(screening => {
-
         const row = document.createElement("tr");
 
         [
@@ -57,47 +52,33 @@ function renderScreenings(screenings) {
             screening.movieTitle,
             screening.screenName
         ].forEach(value => {
-
             const cell = document.createElement("td");
-
             cell.textContent = value;
-
             row.appendChild(cell);
         });
-
 
         // Handling
         const actionCell = document.createElement("td");
 
-
         // Se sæder knap
         const seatsButton = document.createElement("button");
-
         seatsButton.textContent = "Se sæder";
 
         seatsButton.addEventListener("click", () => {
-
             window.location.href =
                 "/screenings/" + screening.id + "/seats/view";
-
         });
 
-
         actionCell.appendChild(seatsButton);
-
         row.appendChild(actionCell);
-
         screeningList.appendChild(row);
     });
 }
 
-
 async function loadScreenings(url) {
-
     const requestId = ++latestRequest;
 
     try {
-
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -113,22 +94,17 @@ async function loadScreenings(url) {
         renderScreenings(screenings);
 
     } catch (e) {
-
         if (requestId !== latestRequest) {
             return;
         }
 
         screeningList.innerHTML = "";
-
         statusMessage.textContent = "Kunne ikke hente programmet.";
     }
 }
 
-
 async function loadMovies() {
-
     try {
-
         const response = await fetch("/api/movies");
 
         if (!response.ok) {
@@ -138,7 +114,6 @@ async function loadMovies() {
         const movies = await response.json();
 
         movies.forEach(movie => {
-
             const option = document.createElement("option");
 
             option.value = movie.id;
@@ -148,51 +123,36 @@ async function loadMovies() {
         });
 
     } catch (e) {
-
         movieStatus.textContent = "Kunne ikke hente film.";
     }
 }
 
-
 movieSelect.addEventListener("change", () => {
-
     dateInput.value = "";
 
     if (movieSelect.value) {
-
         loadScreenings("/screenings/movie/" + movieSelect.value);
-
     } else {
-
         loadScreenings("/screenings");
     }
 });
 
-
 dateInput.addEventListener("change", () => {
-
     movieSelect.value = "";
 
     if (dateInput.value) {
-
         loadScreenings("/screenings/date/" + dateInput.value);
-
     } else {
-
         loadScreenings("/screenings");
     }
 });
 
-
 showAllBtn.addEventListener("click", () => {
-
     movieSelect.value = "";
     dateInput.value = "";
 
     loadScreenings("/screenings");
 });
 
-
 loadMovies();
-
 loadScreenings("/screenings");
