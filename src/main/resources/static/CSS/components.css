@@ -278,25 +278,30 @@
     }
 }
 
-/* Sædeoversigt */
+
+/* =========================
+   Sædeoversigt
+   ========================= */
 
 .seat-map-wrapper {
+    width: 100%;
     overflow-x: auto;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 #seat-container {
     display: grid;
     gap: 8px;
-    justify-content: center;
+    width: max-content;
+    margin: 25px auto 0;
     align-items: center;
-    margin-top: 25px;
 }
 
 .seat {
     width: 32px;
     height: 32px;
-    border: 2px solid #333;
+    padding: 0;
+    border: 2px solid var(--border);
     border-radius: 6px;
     cursor: pointer;
 }
@@ -314,16 +319,19 @@
 .seat-number {
     text-align: center;
     font-weight: bold;
+    color: var(--text);
 }
 
 .screen {
     width: 70%;
+    box-sizing: border-box;
     margin: 30px auto;
     padding: 10px;
     text-align: center;
-    border: 2px solid #777;
+    border: 2px solid var(--border);
     border-radius: 5px;
     font-weight: bold;
+    color: var(--text);
 }
 
 .seat-legend {
@@ -336,7 +344,7 @@
 .seat-example {
     width: 20px;
     height: 20px;
-    border: 2px solid #333;
+    border: 2px solid var(--border);
     border-radius: 4px;
 }
 
@@ -346,4 +354,28 @@
 
 .seat-example.reserved {
     background-color: #d9534f;
+}
+
+.seat-page {
+    grid-template-columns: 1fr;
+}
+
+.seat-page .content-section {
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+}
+
+.seat-map-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+#seat-container {
+    display: grid;
+    gap: 8px;
+    width: max-content;
+    margin: 25px auto 0;
+    align-items: center;
 }

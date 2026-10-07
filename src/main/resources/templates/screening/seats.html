@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <th:block th:replace="~{fragments/head :: common-head}"></th:block>
     <title>Sædeoversigt | KinoXP</title>
@@ -13,34 +14,30 @@
 
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <main class="main-content screening-page">
+    <main class="main-content screening-page seat-page">
 
-        <section class="content-section screening-form-card">
+        <section class="content-section">
 
             <div class="header">
                 <h1>Sædeoversigt</h1>
             </div>
 
-            <div class="form-container">
+            <div class="seat-legend">
+                <span>Ledig</span>
+                <div class="seat-example available"></div>
 
-                <div class="seat-legend">
-                    <span>Ledig</span>
-                    <div class="seat-example available"></div>
+                <span>Reserveret</span>
+                <div class="seat-example reserved"></div>
+            </div>
 
-                    <span>Reserveret</span>
-                    <div class="seat-example reserved"></div>
+            <div class="screen">
+                LÆRRED
+            </div>
+
+            <div class="seat-map-wrapper">
+                <div id="seat-container">
+                    <!-- Sæderne bliver lavet af Seats.js -->
                 </div>
-
-                <div class="screen">
-                    LÆRRED
-                </div>
-
-                <div class="seat-map-wrapper">
-                    <div id="seat-container">
-                        <!-- Seats.js indsætter sæderne her -->
-                    </div>
-                </div>
-
             </div>
 
         </section>
