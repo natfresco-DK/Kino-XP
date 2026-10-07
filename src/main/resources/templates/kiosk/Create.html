@@ -2,7 +2,7 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: common-head}"></th:block>
-    <title>Kiosk | KinoXP</title>
+    <title>Opret vare | KinoXP</title>
 </head>
 <body>
 
@@ -15,36 +15,10 @@
     <main class="main-content screening-page">
         <section class="content-section screening-form-card">
             <div class="header">
-                <h1>Kiosk</h1>
+                <h1>Opret vare</h1>
             </div>
 
             <div class="form-container">
-                <h2>Sælg vare</h2>
-                <form id="saleForm">
-                    <div class="form-group">
-                        <label for="product">Vare</label>
-                        <select id="product" name="product" required>
-                            <option value="">Vælg vare</option>
-                        </select>
-                        <p class="message" id="productStatus" role="status"></p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="quantity">Antal</label>
-                        <input type="number" id="quantity" name="quantity" min="1" step="1" value="1" required>
-                    </div>
-
-                    <p id="total">Total: 0,00 kr.</p>
-
-                    <div class="button-group">
-                        <button type="submit">Registrér salg</button>
-                    </div>
-                </form>
-                <p class="message" id="saleStatus" role="status"></p>
-            </div>
-
-            <div class="form-container">
-                <h2>Opret vare</h2>
                 <form id="productForm">
                     <div class="form-group">
                         <label for="productName">Navn</label>
@@ -66,21 +40,18 @@
 
         <section class="content-section screening-list-card">
             <div class="header">
-                <h2>Seneste salg</h2>
+                <h2>Varer</h2>
             </div>
 
             <div class="table-container">
-                <table id="salesTable">
+                <table id="productsTable">
                     <thead>
                     <tr>
-                        <th>Tidspunkt</th>
                         <th>Vare</th>
-                        <th>Antal</th>
-                        <th>Stykpris</th>
-                        <th>Total</th>
+                        <th>Pris</th>
                     </tr>
                     </thead>
-                    <tbody id="saleList">
+                    <tbody id="productList">
                     </tbody>
                 </table>
             </div>
@@ -91,6 +62,6 @@
 </div>
 
 <script th:src="@{/JS/sidebar.js}"></script>
-<script th:src="@{/JS/Kiosk.js}"></script>
+<script th:src="@{/JS/KioskCreate.js}"></script>
 </body>
 </html>

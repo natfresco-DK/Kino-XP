@@ -2,17 +2,11 @@ const productSelect = document.getElementById("product");
 const quantityInput = document.getElementById("quantity");
 const totalText = document.getElementById("total");
 const saleForm = document.getElementById("saleForm");
-const productForm = document.getElementById("productForm");
-const productNameInput = document.getElementById("productName");
-const priceInput = document.getElementById("price");
-const saleList = document.getElementById("saleList");
-
 const saleButton = saleForm.querySelector("button[type='submit']");
-const productButton = productForm.querySelector("button[type='submit']");
+const saleList = document.getElementById("saleList");
 
 const productStatus = document.getElementById("productStatus");
 const saleStatus = document.getElementById("saleStatus");
-const createStatus = document.getElementById("createStatus");
 const listStatus = document.getElementById("listStatus");
 
 function formatPrice(value) {
@@ -49,7 +43,6 @@ function updateTotal() {
 
 async function loadProducts() {
     productStatus.textContent = "";
-    const previouslySelected = productSelect.value;
 
     try {
         const response = await fetch("/kiosk/products");
@@ -67,9 +60,8 @@ async function loadProducts() {
             productSelect.appendChild(option);
         });
 
-        productSelect.value = previouslySelected;
         if (products.length === 0) {
-            productStatus.textContent = "Der er ingen varer endnu. Opret en vare nedenfor.";
+            productStatus.textContent = "Der er ingen varer endnu. Opret en vare under Kiosk → Opret vare.";
         }
     } catch (e) {
         productStatus.textContent = "Kunne ikke hente varer.";
@@ -153,42 +145,6 @@ saleForm.addEventListener("submit", async event => {
         saleStatus.textContent = "Kunne ikke kontakte serveren.";
     } finally {
         saleButton.disabled = false;
-    }
-});
-
-productForm.addEventListener("submit", async event => {
-    event.preventDefault();
-    createStatus.textContent = "";
-    productButton.disabled = true;
-
-    const request = {
-        product: productNameInput.value,
-        price: priceInput.value
-    };
-
-    try {
-        const response = await fetch("/kiosk/products", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(request)
-        });
-
-        if (!response.ok) {
-            createStatus.textContent = await readErrorMessage(response, "Varen kunne ikke oprettes.");
-            return;
-        }
-
-        const product = await response.json();
-        createStatus.textContent = product.product + " er oprettet.";
-
-        productForm.reset();
-        await loadProducts();
-        productSelect.value = product.id;
-        updateTotal();
-    } catch (e) {
-        createStatus.textContent = "Kunne ikke kontakte serveren.";
-    } finally {
-        productButton.disabled = false;
     }
 });
 

@@ -7,3 +7,12 @@ function toggleFilmMenu() {
     menu.classList.toggle("open");
     arrow.classList.toggle("rotated");
 }
+
+function toggleKioskMenu() {
+
+    const menu = document.querySelector("#kioskMenu");
+    const arrow = document.querySelector("#kioskArrow");
+
+    menu.classList.toggle("open");
+    arrow.classList.toggle("rotated");
+}
