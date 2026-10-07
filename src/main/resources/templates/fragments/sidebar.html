@@ -33,6 +33,21 @@
         <span>Program</span>
     </a>
 
+    <div class="sidebar-group">
+        <button class="sidebar-item" onclick="toggleKioskMenu()">
+            <span class="sidebar-icon">
+                <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+            </span>
+            <span>Kiosk</span>
+            <span class="sidebar-arrow" id="kioskArrow">⌄</span>
+        </button>
+
+        <div class="sidebar-submenu" id="kioskMenu">
+            <a href="/kiosk/sell" class="sidebar-subitem">Sælg vare</a>
+            <a href="/kiosk/create" class="sidebar-subitem">Opret vare</a>
+        </div>
+    </div>
+
     <a href="/settings" class="sidebar-item">
         <span class="sidebar-icon">
             <i class="fa-solid fa-gear" aria-hidden="true"></i>
