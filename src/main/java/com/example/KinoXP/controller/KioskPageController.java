@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class KioskPageController {
 
-    @GetMapping("/kiosk")
-    public String showKiosk() {
-        return "Kiosk";
+    @GetMapping("/kiosk/sell")
+    public String showSellPage() {
+        return "kiosk/sell";
+    }
+
+    @GetMapping("/kiosk/create")
+    public String showCreatePage() {
+        return "kiosk/create";
     }
 }
