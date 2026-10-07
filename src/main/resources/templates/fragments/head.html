@@ -1,6 +1,7 @@
 <head th:fragment="common-head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
     <script th:src="@{/JS/theme.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/theme.css}">
     <link rel="stylesheet" th:href="@{/CSS/base.css}">
