@@ -83,13 +83,11 @@ function renderScreenings(screenings) {
         });
 
 
-        // Tilføj Se sæder knappen til Handling
         actionCell.appendChild(seatsButton);
 
         row.appendChild(actionCell);
 
         screeningList.appendChild(row);
-
     });
 }
 
@@ -147,13 +145,11 @@ async function loadMovies() {
             option.textContent = movie.title;
 
             movieSelect.appendChild(option);
-
         });
 
     } catch (e) {
 
         movieStatus.textContent = "Kunne ikke hente film.";
-
     }
 }
 
@@ -169,9 +165,7 @@ movieSelect.addEventListener("change", () => {
     } else {
 
         loadScreenings("/screenings");
-
     }
-
 });
 
 
@@ -186,9 +180,7 @@ dateInput.addEventListener("change", () => {
     } else {
 
         loadScreenings("/screenings");
-
     }
-
 });
 
 
@@ -198,7 +190,6 @@ showAllBtn.addEventListener("click", () => {
     dateInput.value = "";
 
     loadScreenings("/screenings");
-
 });
 
 

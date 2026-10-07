@@ -13,10 +13,10 @@ public class Screen {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ScreenType screenType;
 
-    public Screen() {
-    }
+    public Screen() {}
 
     public Screen(String name, ScreenType screenType) {
         this.name = name;

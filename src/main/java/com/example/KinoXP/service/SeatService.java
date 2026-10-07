@@ -34,7 +34,6 @@ public class SeatService {
         this.screenRepo = screenRepo;
     }
 
-
     public List<SeatResponse> getSeatsForScreening(Long screeningId) {
 
         Screening screening = screeningRepo.findById(screeningId)
@@ -75,7 +74,6 @@ public class SeatService {
         return responses;
     }
 
-
     public void createSeatsForScreen(Long screenId) {
 
         Screen screen = screenRepo.findById(screenId)
@@ -83,12 +81,7 @@ public class SeatService {
                         new IllegalArgumentException("Screen not found")
                 );
 
-        // Tjek om salen allerede har sæder
         List<Seat> existingSeats = seatRepo.findByScreen(screen);
-
-        if (!existingSeats.isEmpty()) {
-            return;
-        }
 
         int rows = screen.getScreenType().getRows();
         int seatsPerRow = screen.getScreenType().getSeatsPerRow();
@@ -99,13 +92,28 @@ public class SeatService {
 
             for (int seatNumber = 1; seatNumber <= seatsPerRow; seatNumber++) {
 
-                Seat seat = new Seat(
-                        row,
-                        seatNumber,
-                        screen
-                );
+                boolean seatExists = false;
 
-                seatRepo.save(seat);
+                for (Seat existingSeat : existingSeats) {
+
+                    if (existingSeat.getRow().equals(row)
+                            && existingSeat.getSeatNumber() == seatNumber) {
+
+                        seatExists = true;
+                        break;
+                    }
+                }
+
+                if (!seatExists) {
+
+                    Seat seat = new Seat(
+                            row,
+                            seatNumber,
+                            screen
+                    );
+
+                    seatRepo.save(seat);
+                }
             }
         }
     }
