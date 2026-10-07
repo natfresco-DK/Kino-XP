@@ -1,9 +1,7 @@
 async function loadSeats(screeningId) {
-
     const container = document.getElementById("seat-container");
 
     try {
-
         const response = await fetch(
             "/screenings/" + screeningId + "/seats"
         );
@@ -21,15 +19,12 @@ async function loadSeats(screeningId) {
         displaySeats(seats);
 
     } catch (error) {
-
         container.innerHTML =
             "<p>Kunne ikke hente sæderne.</p>";
     }
 }
 
-
 function displaySeats(seats) {
-
     const container = document.getElementById("seat-container");
 
     container.innerHTML = "";
@@ -40,12 +35,10 @@ function displaySeats(seats) {
         ...seats.map(seat => seat.seatNumber)
     );
 
-
     const emptyCorner = document.createElement("div");
     container.appendChild(emptyCorner);
 
     for (let number = 1; number <= maxSeatNumber; number++) {
-
         const numberElement = document.createElement("div");
 
         numberElement.textContent = number;
@@ -54,9 +47,7 @@ function displaySeats(seats) {
         container.appendChild(numberElement);
     }
 
-
     for (const row of rows) {
-
         const rowElement = document.createElement("div");
 
         rowElement.textContent = row;
@@ -64,9 +55,7 @@ function displaySeats(seats) {
 
         container.appendChild(rowElement);
 
-
         for (let number = 1; number <= maxSeatNumber; number++) {
-
             const seat = seats.find(
                 seat =>
                     seat.row === row &&
@@ -74,7 +63,6 @@ function displaySeats(seats) {
             );
 
             if (seat) {
-
                 const seatElement = document.createElement("button");
 
                 seatElement.classList.add("seat");
@@ -99,14 +87,11 @@ function displaySeats(seats) {
         }
     }
 
-
     container.style.gridTemplateColumns =
         "40px repeat(" + maxSeatNumber + ", 40px)";
 }
 
-
 const parts = window.location.pathname.split("/");
-
 const screeningId = parts[2];
 
 loadSeats(screeningId);
