@@ -33,11 +33,15 @@ public class SecurityConfig {
                                 "/screenings/movie/**",
                                 "/movies/**",
                                 "/api/movies",
-                                "/api/movies/**")
-                        .hasAnyRole(UserRole.ADMIN.name(),UserRole.MOVIE_OPERATOR.name())
+                                "/api/movies/**"
+                                )
+                            .hasAnyRole(UserRole.ADMIN.name(),UserRole.MOVIE_OPERATOR.name())
+
+                        .requestMatchers(HttpMethod.PUT, "/api/movies/**")
+                            .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
 
                         .requestMatchers("/kiosk/**")
-                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
+                            .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
 
                         .anyRequest().hasRole(UserRole.ADMIN.name())
                 )
