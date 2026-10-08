@@ -32,10 +32,10 @@ public class SecurityConfig {
                                 "/movies/**",
                                 "/api/movies",
                                 "/api/movies/**")
-                        .hasAnyRole(UserRole.MOVIE_OPERATOR.name())
+                        .hasAnyRole(UserRole.ADMIN.name(),UserRole.MOVIE_OPERATOR.name())
 
                         .requestMatchers("/kiosk/**")
-                        .hasAnyRole(UserRole.RESERVATION.name())
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
 
                         .anyRequest().hasRole(UserRole.ADMIN.name())
                 )
