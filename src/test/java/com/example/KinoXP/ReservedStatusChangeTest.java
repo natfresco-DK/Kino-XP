@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import com.example.KinoXP.utils.ScreenType;
-
 
 import java.time.LocalDateTime;
 
@@ -34,7 +32,7 @@ class ReservedStatusChangeTest {
     void show_seat_reserved_after_reservation(){
         //arange: Opret og gem film til en sal1 (lille sal)
         Movie movie = movieRepo.save(new Movie());
-        Screen screen = screenRepo.save(new Screen("Sal 1", ScreenType.SMALL));
+        Screen screen = screenRepo.save(new Screen("Sal 1", 20, 12));
 
         LocalDateTime start = LocalDateTime.of(2026, 10, 7, 18, 0);
         Screening screening = screeningRepo.save(
