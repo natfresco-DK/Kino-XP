@@ -1,6 +1,7 @@
 const movieForm = document.querySelector("#movieForm");
 const submitButton = movieForm.querySelector("button[type='submit']");
 const message = document.querySelector("#message");
+const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
 movieForm.addEventListener("submit", function(event) {
 
@@ -40,7 +41,8 @@ movieForm.addEventListener("submit", function(event) {
         method: "POST",
 
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrfToken
         },
 
         body: JSON.stringify(movie)
