@@ -193,12 +193,12 @@ class ReservationServiceTest {
         );
 
         assertEquals("Et eller flere af sæderne er allerede reserveret", exception.getMessage());
-        verify(reservationRepo, never()).saveAll(anyList());
+        verify(reservationRepo, never()).saveAllAndFlush(anyList());
     }
 
     private void saveAllReturnsSameList() {
-        when(reservationRepo.saveAll(anyList()))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+            when(reservationRepo.saveAllAndFlush(anyList()))
+                    .thenAnswer(invocation -> invocation.getArgument(0));
     }
 
     private void assertBadRequest(CreateReservationRequest request, String expectedMessage) {
@@ -207,7 +207,7 @@ class ReservationServiceTest {
                 () -> reservationService.createReservation(request)
         );
         assertEquals(expectedMessage, exception.getMessage());
-        verify(reservationRepo, never()).saveAll(any());
+        verify(reservationRepo, never()).saveAllAndFlush(anyList());
     }
 
     private Screen newScreen(Long id, String name, ScreenType type) {
