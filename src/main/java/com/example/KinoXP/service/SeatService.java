@@ -83,7 +83,7 @@ public class SeatService {
 
         List<Seat> existingSeats = seatRepo.findByScreen(screen);
 
-        int rows = screen.getRows();
+        int rows = screen.getRowCount();
         int seatsPerRow = screen.getSeatsPerRow();
 
         for (int rowNumber = 0; rowNumber < rows; rowNumber++) {

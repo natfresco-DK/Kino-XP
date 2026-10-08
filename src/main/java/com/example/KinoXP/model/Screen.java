@@ -11,14 +11,14 @@ public class Screen {
 
     private String name;
 
-    private int rows;
+    private int rowCount;
     private int seatsPerRow;
 
     public Screen() {}
 
-    public Screen(String name, int rows, int seatsPerRow) {
+    public Screen(String name, int rowCount, int seatsPerRow) {
         this.name = name;
-        this.rows = rows;
+        this.rowCount = rowCount;
         this.seatsPerRow = seatsPerRow;
     }
 
@@ -38,8 +38,8 @@ public class Screen {
         this.id = id;
     }
 
-    public int getRows() {
-        return rows;
+    public int getRowCount() {
+        return rowCount;
     }
 
     public int getSeatsPerRow() {

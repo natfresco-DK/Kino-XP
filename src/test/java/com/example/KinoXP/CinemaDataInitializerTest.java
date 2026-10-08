@@ -30,7 +30,7 @@ class CinemaDataInitializerTest {
         Screen screen = screenRepo.findByName("Lille").orElseThrow();
         List<Seat> seats = seatRepo.findByScreen(screen);
 
-        assertEquals(20, screen.getRows());
+        assertEquals(20, screen.getRowCount());
         assertEquals(12, screen.getSeatsPerRow());
         assertEquals(20 * 12, seats.size());
 
@@ -42,7 +42,7 @@ class CinemaDataInitializerTest {
         Screen screen = screenRepo.findByName("Stor").orElseThrow();
         List<Seat> seats = seatRepo.findByScreen(screen);
 
-        assertEquals(25, screen.getRows());
+        assertEquals(25, screen.getRowCount());
         assertEquals(16, screen.getSeatsPerRow());
         assertEquals(25 * 16, seats.size());
 
