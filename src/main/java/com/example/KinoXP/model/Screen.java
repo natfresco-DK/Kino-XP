@@ -42,15 +42,7 @@ public class Screen {
         return rows;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
     public int getSeatsPerRow() {
         return seatsPerRow;
-    }
-
-    public void setSeatsPerRow(int seatsPerRow) {
-        this.seatsPerRow = seatsPerRow;
     }
 }
