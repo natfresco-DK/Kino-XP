@@ -20,16 +20,13 @@ dateInput.min = todayAsString();
 
 function formatDate(dateTime) {
     return new Date(dateTime).toLocaleDateString("da-DK", {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
+        weekday: "long", day: "numeric", month: "long"
     });
 }
 
 function formatTime(dateTime) {
     return new Date(dateTime).toLocaleTimeString("da-DK", {
-        hour: "2-digit",
-        minute: "2-digit"
+        hour: "2-digit", minute: "2-digit"
     });
 }
 
@@ -46,12 +43,7 @@ function renderScreenings(screenings) {
     screenings.forEach(screening => {
         const row = document.createElement("tr");
 
-        [
-            formatDate(screening.startTime),
-            formatTime(screening.startTime) + " – " + formatTime(screening.endTime),
-            screening.movieTitle,
-            screening.screenName
-        ].forEach(value => {
+        [formatDate(screening.startTime), formatTime(screening.startTime) + " – " + formatTime(screening.endTime), screening.movieTitle, screening.screenName].forEach(value => {
             const cell = document.createElement("td");
             cell.textContent = value;
             row.appendChild(cell);
@@ -65,8 +57,7 @@ function renderScreenings(screenings) {
         seatsButton.textContent = "Se sæder";
 
         seatsButton.addEventListener("click", () => {
-            window.location.href =
-                "/screenings/" + screening.id + "/seats/view";
+            window.location.href = "/screenings/" + screening.id + "/seats/view";
         });
 
         actionCell.appendChild(seatsButton);
