@@ -1,6 +1,5 @@
 package com.example.KinoXP.model;
 
-import com.example.KinoXP.utils.ScreenType;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,15 +11,15 @@ public class Screen {
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ScreenType screenType;
+    private int rows;
+    private int seatsPerRow;
 
     public Screen() {}
 
-    public Screen(String name, ScreenType screenType) {
+    public Screen(String name, int rows, int seatsPerRow) {
         this.name = name;
-        this.screenType = screenType;
+        this.rows = rows;
+        this.seatsPerRow = seatsPerRow;
     }
 
     public Long getId() {
@@ -31,15 +30,27 @@ public class Screen {
         return name;
     }
 
-    public ScreenType getScreenType() {
-        return screenType;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setScreenType(ScreenType screenType) {
-        this.screenType = screenType;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getSeatsPerRow() {
+        return seatsPerRow;
+    }
+
+    public void setSeatsPerRow(int seatsPerRow) {
+        this.seatsPerRow = seatsPerRow;
     }
 }
