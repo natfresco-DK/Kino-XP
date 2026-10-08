@@ -278,60 +278,14 @@
     }
 }
 
+.seat-page {
+    grid-template-columns: 1fr;
+}
 
-/* =========================
-   Sædeoversigt
-   ========================= */
-
-.seat-map-wrapper {
+.seat-page .content-section {
     width: 100%;
-    overflow-x: auto;
-    padding: 20px 0;
-}
-
-#seat-container {
-    display: grid;
-    gap: 8px;
-    width: max-content;
-    margin: 25px auto 0;
-    align-items: center;
-}
-
-.seat {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.seat.available {
-    background-color: white;
-}
-
-.seat.reserved {
-    background-color: #d9534f;
-    cursor: not-allowed;
-}
-
-.row-name,
-.seat-number {
-    text-align: center;
-    font-weight: bold;
-    color: var(--text);
-}
-
-.screen {
-    width: 70%;
+    max-width: 900px;
     box-sizing: border-box;
-    margin: 30px auto;
-    padding: 10px;
-    text-align: center;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    font-weight: bold;
-    color: var(--text);
 }
 
 .seat-legend {
@@ -352,18 +306,26 @@
     background-color: white;
 }
 
+.seat-example.selected {
+    background-color: #2e86de;
+    border-color: #2e86de;
+}
+
 .seat-example.reserved {
     background-color: #d9534f;
+    border-color: #d9534f;
 }
 
-.seat-page {
-    grid-template-columns: 1fr;
-}
-
-.seat-page .content-section {
-    width: 100%;
-    max-width: 900px;
+.screen {
+    width: 70%;
     box-sizing: border-box;
+    margin: 30px auto;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--text);
 }
 
 .seat-map-wrapper {
@@ -378,4 +340,46 @@
     width: max-content;
     margin: 25px auto 0;
     align-items: center;
+}
+
+.row-name,
+.seat-number {
+    text-align: center;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.seat-page .seat {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.seat-page .seat:active {
+    transform: none;
+}
+
+.seat-page .seat.available {
+    background-color: white;
+}
+
+.seat-page .seat.available:hover {
+    background-color: #d6e9fb;
+}
+
+.seat-page .seat.selected,
+.seat-page .seat.selected:hover {
+    background-color: #2e86de;
+    border-color: #2e86de;
+}
+
+.seat-page .seat.reserved,
+.seat-page .seat.reserved:hover {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    cursor: not-allowed;
 }

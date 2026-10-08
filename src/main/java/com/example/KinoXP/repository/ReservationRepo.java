@@ -4,9 +4,12 @@ import com.example.KinoXP.model.Reservation;
 import com.example.KinoXP.model.Screening;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ReservationRepo extends JpaRepository<Reservation, Long> {
 
     List<Reservation> findByScreening(Screening screening);
+
+    boolean existsByScreeningAndSeatIdIn(Screening screening, Collection<Long> seatIds);
 }

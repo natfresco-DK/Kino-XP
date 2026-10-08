@@ -55,9 +55,9 @@ class ReservedStatusChangeTest {
         //Kontroller at sædet er ledigt (starter false)
         assertFalse(before.reserved(), "Sædet skal være ledigt");
 
-        //act: Gem reservation send via saveAndFlush SQL ændring direkte i databasen.
-        reservationRepo.saveAndFlush(new Reservation(screening, seat));
-        entityManager.clear();
+        reservationRepo.saveAndFlush(
+                new Reservation(screening, seat, "12345678")
+        );
 
         //Henter status EFTER reservation.
         SeatResponse after = seatService

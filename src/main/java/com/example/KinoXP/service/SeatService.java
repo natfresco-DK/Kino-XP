@@ -10,6 +10,7 @@ import com.example.KinoXP.repository.ScreeningRepo;
 import com.example.KinoXP.repository.ScreenRepo;
 import com.example.KinoXP.repository.SeatRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,6 @@ public class SeatService {
     }
 
     public List<SeatResponse> getSeatsForScreening(Long screeningId) {
-
         Screening screening = screeningRepo.findById(screeningId)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Screening not found")
@@ -43,24 +43,19 @@ public class SeatService {
 
         List<Seat> seats =
                 seatRepo.findByScreen(screening.getScreen());
-
         List<Reservation> reservations =
                 reservationRepo.findByScreening(screening);
-
         List<SeatResponse> responses = new ArrayList<>();
 
         for (Seat seat : seats) {
-
             boolean reserved = false;
 
             for (Reservation reservation : reservations) {
-
                 if (reservation.getSeat().getId().equals(seat.getId())) {
                     reserved = true;
                     break;
                 }
             }
-
             responses.add(
                     new SeatResponse(
                             seat.getId(),
@@ -70,48 +65,46 @@ public class SeatService {
                     )
             );
         }
-
         return responses;
     }
 
+    @Transactional
     public void createSeatsForScreen(Long screenId) {
-
         Screen screen = screenRepo.findById(screenId)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Screen not found")
                 );
 
+        // Kontroller at salen har en ScreenType
+        if (screen.getScreenType() == null) {
+            throw new IllegalArgumentException(
+                    "Salen mangler en ScreenType"
+            );
+        }
         List<Seat> existingSeats = seatRepo.findByScreen(screen);
 
         int rows = screen.getScreenType().getRows();
         int seatsPerRow = screen.getScreenType().getSeatsPerRow();
 
         for (int rowNumber = 0; rowNumber < rows; rowNumber++) {
-
             String row = String.valueOf((char) ('A' + rowNumber));
 
             for (int seatNumber = 1; seatNumber <= seatsPerRow; seatNumber++) {
-
                 boolean seatExists = false;
-
                 for (Seat existingSeat : existingSeats) {
-
                     if (existingSeat.getRow().equals(row)
                             && existingSeat.getSeatNumber() == seatNumber) {
-
                         seatExists = true;
                         break;
                     }
                 }
 
                 if (!seatExists) {
-
                     Seat seat = new Seat(
                             row,
                             seatNumber,
                             screen
                     );
-
                     seatRepo.save(seat);
                 }
             }
