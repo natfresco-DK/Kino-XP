@@ -8,6 +8,7 @@ import com.example.KinoXP.model.Seat;
 import com.example.KinoXP.repository.ReservationRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
 import com.example.KinoXP.repository.SeatRepo;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,10 +62,17 @@ public class ReservationService {
                 .map(seat -> new Reservation(screening, seat, phoneNumber))
                 .toList();
 
-        return reservationRepo.saveAll(reservations)
-                .stream()
-                .map(ReservationResponse::from)
-                .toList();
+        try {
+            return reservationRepo.saveAllAndFlush(reservations)
+                    .stream()
+                    .map(ReservationResponse::from)
+                    .toList();
+
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalStateException(
+                    "Et eller flere af sæderne er allerede reserveret", e
+            );
+        }
     }
 
     private String validatePhoneNumber(String phoneNumber) {
