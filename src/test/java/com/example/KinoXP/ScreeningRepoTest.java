@@ -40,8 +40,8 @@ class ScreeningRepoTest {
     void setUp() {
         interstellar = movieRepo.save(newMovie("Interstellar"));
         dune = movieRepo.save(newMovie("Dune"));
-        sal1 = screenRepo.save(new Screen("Sal 1"));
-        sal2 = screenRepo.save(new Screen("Sal 2"));
+        sal1 = screenRepo.save(new Screen("Sal 1", 20, 12));
+        sal2 = screenRepo.save(new Screen("Sal 2", 25, 16));
     }
 
     @Test
