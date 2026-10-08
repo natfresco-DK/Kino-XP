@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/head :: common-head}"></th:block>
+    <title>Sædeoversigt | KinoXP</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="page-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main-content screening-page seat-page">
+
+        <section class="content-section">
+
+            <div class="header">
+                <h1>Sædeoversigt</h1>
+            </div>
+
+            <div class="seat-legend">
+                <span>Ledig</span>
+                <div class="seat-example available"></div>
+
+                <span>Reserveret</span>
+                <div class="seat-example reserved"></div>
+            </div>
+
+            <div class="screen">
+                LÆRRED
+            </div>
+
+            <div class="seat-map-wrapper">
+                <div id="seat-container">
+                    <!-- Sæderne bliver lavet af seats.js -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script th:src="@{/JS/sidebar.js}"></script>
+<script th:src="@{/JS/seats.js}"></script>
+
+</body>
+</html>

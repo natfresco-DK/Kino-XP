@@ -11,8 +11,7 @@ public record ScreeningResponse(
         String screenName,
         LocalDateTime startTime,
         LocalDateTime endTime
-) {
-    public static ScreeningResponse from(Screening screening) {
+) {public static ScreeningResponse from(Screening screening) {
         return new ScreeningResponse(
                 screening.getId(),
                 screening.getMovie().getId(),

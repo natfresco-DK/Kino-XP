@@ -277,3 +277,105 @@
         padding: 12px;
     }
 }
+
+
+/* =========================
+   Sædeoversigt
+   ========================= */
+
+.seat-map-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+#seat-container {
+    display: grid;
+    gap: 8px;
+    width: max-content;
+    margin: 25px auto 0;
+    align-items: center;
+}
+
+.seat {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.seat.available {
+    background-color: white;
+}
+
+.seat.reserved {
+    background-color: #d9534f;
+    cursor: not-allowed;
+}
+
+.row-name,
+.seat-number {
+    text-align: center;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.screen {
+    width: 70%;
+    box-sizing: border-box;
+    margin: 30px auto;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.seat-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.seat-example {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+}
+
+.seat-example.available {
+    background-color: white;
+}
+
+.seat-example.reserved {
+    background-color: #d9534f;
+}
+
+.seat-page {
+    grid-template-columns: 1fr;
+}
+
+.seat-page .content-section {
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+}
+
+.seat-map-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+#seat-container {
+    display: grid;
+    gap: 8px;
+    width: max-content;
+    margin: 25px auto 0;
+    align-items: center;
+}
