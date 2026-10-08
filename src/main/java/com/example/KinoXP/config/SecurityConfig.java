@@ -16,15 +16,27 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/CSS/**", "/JS/**", "/images/**", "/error").permitAll()
-                        .requestMatchers("/program", "/movies/**", "/api/movies", "/api/movies/**")
-                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
+                        .requestMatchers(
+                                "/CSS/**",
+                                "/JS/**",
+                                "/images/**",
+                                "/error",
+                                "/program"
+                        )
+                        .permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/screenings", "/screenings/date/**", "/screenings/movie/**")
-                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
+                        .requestMatchers(HttpMethod.GET,
+                                "/screenings",
+                                "/screenings/date/**",
+                                "/screenings/movie/**",
+                                "/movies/**",
+                                "/api/movies",
+                                "/api/movies/**")
+                        .hasAnyRole(UserRole.MOVIE_OPERATOR.name())
+
                         .requestMatchers("/kiosk/**")
+                        .hasAnyRole(UserRole.RESERVATION.name())
 
-                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
                         .anyRequest().hasRole(UserRole.ADMIN.name())
                 )
                 .formLogin(form -> form
