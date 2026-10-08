@@ -17,8 +17,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/CSS/**",
-                                "/JS/**",
+                                "/css/**",
+                                "/js/**",
                                 "/images/**",
                                 "/error",
                                 "/program"
