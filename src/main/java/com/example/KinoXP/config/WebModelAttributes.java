@@ -1,10 +1,13 @@
 package com.example.KinoXP.config;
 
+import com.example.KinoXP.utils.UserRole;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.Optional;
 
 @ControllerAdvice(annotations = Controller.class)
 public class WebModelAttributes {
@@ -17,17 +20,10 @@ public class WebModelAttributes {
 
         return authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .map(this::displayRole)
+                .map(UserRole::fromAuthority)
+                .flatMap(Optional::stream)
+                .map(UserRole::displayName)
                 .findFirst()
                 .orElse("");
-    }
-
-    private String displayRole(String authority) {
-        return switch (authority) {
-            case "ROLE_ADMIN" -> "Admin";
-            case "ROLE_MOVIE_OPERATOR" -> "Movie operator";
-            case "ROLE_RESERVATION" -> "Reservation";
-            default -> "";
-        };
     }
 }
