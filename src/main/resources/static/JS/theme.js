@@ -19,6 +19,9 @@
             toggle.setAttribute("aria-label", theme === "dark"
                 ? "Skift til lyst tema"
                 : "Skift til mørkt tema");
+            toggle.src = theme === "light"
+                ? "/images/logo-dark.png"
+                : "/images/logo.png";
         }
     }
 
