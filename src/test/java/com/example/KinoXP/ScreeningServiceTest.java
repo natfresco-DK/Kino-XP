@@ -8,7 +8,6 @@ import com.example.KinoXP.repository.MovieRepo;
 import com.example.KinoXP.repository.ScreenRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
 import com.example.KinoXP.service.ScreeningService;
-import com.example.KinoXP.utils.ScreenType;
 
 
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class ScreeningServiceTest {
 
         // Arrange
         Movie movie = new Movie();
-        Screen screen = new Screen("Sal 1", ScreenType.SMALL);
+        Screen screen = new Screen("Sal 1", 20, 12);
 
         CreateScreeningRequest request =
                 new CreateScreeningRequest(
@@ -140,7 +139,7 @@ class ScreeningServiceTest {
 
         // Arrange
         Movie movie = new Movie();
-        Screen screen = new Screen("Sal 1", ScreenType.SMALL);
+        Screen screen = new Screen("Sal 1", 20, 12);
 
         CreateScreeningRequest request =
                 new CreateScreeningRequest(
@@ -168,7 +167,7 @@ class ScreeningServiceTest {
 
         // Arrange
         Movie movie = new Movie();
-        Screen screen = new Screen("Sal 1", ScreenType.SMALL);
+        Screen screen = new Screen("Sal 1", 20, 12);
         CreateScreeningRequest request =
                 new CreateScreeningRequest(
                         1L,

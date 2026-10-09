@@ -80,13 +80,6 @@ textarea {
     border-color: var(--accent);
 }
 
-.employee-menu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-}
-
 .page-layout {
     display: flex;
     min-height: calc(100vh - 70px);
@@ -125,11 +118,31 @@ textarea {
         gap: 16px;
     }
 
-    .employee-menu {
-        display: none;
-    }
-
     .main-content {
         padding: 16px;
     }
+}
+
+.kinoxp-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo-svg {
+    display: block;
+    width: 150px;
+    height: auto;
+}
+
+.logo-text {
+    fill: #ffffff;
+}
+
+:root[data-theme="light"] .logo-text {
+    fill: #111827;
+}
+
+.logo-accent {
+    fill: var(--accent);
 }

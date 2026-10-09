@@ -8,6 +8,7 @@ const saleList = document.getElementById("saleList");
 const productStatus = document.getElementById("productStatus");
 const saleStatus = document.getElementById("saleStatus");
 const listStatus = document.getElementById("listStatus");
+const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
 function formatPrice(value) {
     return Number(value).toLocaleString("da-DK", {
@@ -125,7 +126,10 @@ saleForm.addEventListener("submit", async event => {
     try {
         const response = await fetch("/kiosk/sales", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken
+            },
             body: JSON.stringify(request)
         });
 

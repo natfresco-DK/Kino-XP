@@ -1,5 +1,6 @@
 const fields = ["title", "description", "genre", "duration", "actors", "releaseYear", "ageLimit"];
 const listFields = ["genre", "actors"];
+const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
 async function loadMovies() {
     const res = await fetch("/api/movies");
@@ -55,7 +56,10 @@ document.getElementById("edit-form").onsubmit = async event => {
 
     const res = await fetch(`/api/movies/${id}`, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrfToken
+        },
         body: JSON.stringify(movie)
     });
 

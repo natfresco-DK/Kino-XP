@@ -5,6 +5,7 @@ const startTime = document.querySelector("#startTime");
 const endTime = document.querySelector("#endTime");
 const statusMessage = document.querySelector("#status");
 const screeningList = document.querySelector("#screeningList");
+const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
 function formatDate(dateTime) {
     return new Date(dateTime).toLocaleDateString("da-DK", {
@@ -45,7 +46,11 @@ function renderScreenings(screenings) {
 
             try {
                 const response = await fetch("/screenings/" + screening.id, {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken
+                    }
                 });
 
                 if (response.ok) {
@@ -145,7 +150,8 @@ form.addEventListener("submit", async event => {
         const response = await fetch("/screenings", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken
             },
             body: JSON.stringify(screening)
         });
