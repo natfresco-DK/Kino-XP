@@ -2,6 +2,8 @@ package com.example.KinoXP.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(
         name = "reservation",
@@ -15,20 +17,28 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "screening_id", nullable = false)
     private Screening screening;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
+
+    @Column(nullable = false, length = 8)
+    private String phoneNumber;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
     public Reservation() {
     }
 
-    public Reservation(Screening screening, Seat seat) {
+    public Reservation(Screening screening, Seat seat, String phoneNumber) {
         this.screening = screening;
         this.seat = seat;
+        this.phoneNumber = phoneNumber;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -41,6 +51,14 @@ public class Reservation {
 
     public Seat getSeat() {
         return seat;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public void setScreening(Screening screening) {

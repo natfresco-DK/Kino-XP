@@ -1,10 +1,65 @@
-async function loadSeats(screeningId) {
-    const container = document.getElementById("seat-container");
+const container = document.getElementById("seat-container");
+const reservationForm = document.getElementById("reservationForm");
+const phoneInput = document.getElementById("phoneNumber");
+const reserveButton = document.getElementById("reserveButton");
+const selectedSeatsText = document.getElementById("selectedSeats");
+const reservationStatus = document.getElementById("reservationStatus");
 
+const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+
+const selectedSeats = new Map();
+
+const parts = window.location.pathname.split("/");
+const screeningId = Number(parts[2]);
+
+function jsonHeaders() {
+    const headers = { "Content-Type": "application/json" };
+    if (csrfToken && csrfHeader) {
+        headers[csrfHeader] = csrfToken;
+    }
+    return headers;
+}
+
+async function readErrorMessage(response, fallback) {
     try {
-        const response = await fetch(
-            "/screenings/" + screeningId + "/seats"
-        );
+        const data = await response.json();
+        return data.message || fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function updateSelection() {
+    if (selectedSeats.size === 0) {
+        selectedSeatsText.textContent = "Ingen sæder valgt";
+    } else {
+        selectedSeatsText.textContent =
+            "Valgte sæder: " + [...selectedSeats.values()].join(", ");
+    }
+    reserveButton.disabled = selectedSeats.size === 0;
+}
+
+function toggleSeat(seat, seatElement) {
+    const label = seat.row + seat.seatNumber;
+
+    if (selectedSeats.has(seat.id)) {
+        selectedSeats.delete(seat.id);
+        seatElement.classList.remove("selected");
+        seatElement.setAttribute("aria-pressed", "false");
+    } else {
+        selectedSeats.set(seat.id, label);
+        seatElement.classList.add("selected");
+        seatElement.setAttribute("aria-pressed", "true");
+    }
+
+    reservationStatus.textContent = "";
+    updateSelection();
+}
+
+async function loadSeats() {
+    try {
+        const response = await fetch("/screenings/" + screeningId + "/seats");
 
         if (!response.ok) {
             throw new Error("Kunne ikke hente sæder");
@@ -19,15 +74,19 @@ async function loadSeats(screeningId) {
         displaySeats(seats);
 
     } catch (error) {
-        container.innerHTML =
-            "<p>Kunne ikke hente sæderne.</p>";
+        container.innerHTML = "<p>Kunne ikke hente sæderne.</p>";
     }
 }
 
 function displaySeats(seats) {
-    const container = document.getElementById("seat-container");
-
     container.innerHTML = "";
+
+    if (seats.length === 0) {
+        const message = document.createElement("p");
+        message.textContent = "Der er ingen sæder i denne sal.";
+        container.appendChild(message);
+        return;
+    }
 
     const rows = [...new Set(seats.map(seat => seat.row))].sort();
 
@@ -62,28 +121,28 @@ function displaySeats(seats) {
                     seat.seatNumber === number
             );
 
-            if (seat) {
-                const seatElement = document.createElement("button");
-
-                seatElement.classList.add("seat");
-
-                if (seat.reserved) {
-                    seatElement.classList.add("reserved");
-                    seatElement.disabled = true;
-                } else {
-                    seatElement.classList.add("available");
-                }
-
-                seatElement.setAttribute(
-                    "aria-label",
-                    "Sæde " + seat.row + seat.seatNumber +
-                    ", " + (seat.reserved ? "reserveret" : "ledig")
-                );
-
-                seatElement.dataset.seatId = seat.id;
-
-                container.appendChild(seatElement);
+            if (!seat) {
+                container.appendChild(document.createElement("div"));
+                continue;
             }
+
+            const seatElement = document.createElement("button");
+            seatElement.type = "button";
+            seatElement.classList.add("seat");
+            seatElement.dataset.seatId = seat.id;
+
+            if (seat.reserved) {
+                seatElement.classList.add("reserved");
+                seatElement.disabled = true;
+                seatElement.setAttribute("aria-label", "Sæde " + row + number + ", reserveret");
+            } else {
+                seatElement.classList.add("available");
+                seatElement.setAttribute("aria-label", "Sæde " + row + number + ", ledig");
+                seatElement.setAttribute("aria-pressed", "false");
+                seatElement.addEventListener("click", () => toggleSeat(seat, seatElement));
+            }
+
+            container.appendChild(seatElement);
         }
     }
 
@@ -91,7 +150,62 @@ function displaySeats(seats) {
         "40px repeat(" + maxSeatNumber + ", 40px)";
 }
 
-const parts = window.location.pathname.split("/");
-const screeningId = parts[2];
+reservationForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    reservationStatus.textContent = "";
 
-loadSeats(screeningId);
+    if (selectedSeats.size === 0) {
+        reservationStatus.textContent = "Vælg mindst ét sæde.";
+        return;
+    }
+
+    reserveButton.disabled = true;
+
+    const seatLabels = [...selectedSeats.values()].join(", ");
+    const request = {
+        screeningId: screeningId,
+        seatIds: [...selectedSeats.keys()],
+        phoneNumber: phoneInput.value.trim()
+    };
+
+    try {
+        const response = await fetch("/reservations", {
+            method: "POST",
+            headers: jsonHeaders(),
+            body: JSON.stringify(request)
+        });
+
+        if (!response.ok) {
+            reservationStatus.textContent =
+                await readErrorMessage(response, "Reservationen kunne ikke gennemføres.");
+
+            if (response.status === 409) {
+                selectedSeats.clear();
+                updateSelection();
+                await loadSeats();
+            }
+            return;
+        }
+
+        reservationStatus.textContent =
+            "Reserveret: " + seatLabels + " til " + request.phoneNumber;
+
+        selectedSeats.clear();
+        reservationForm.reset();
+        updateSelection();
+        await loadSeats();
+
+    } catch (e) {
+        reservationStatus.textContent = "Kunne ikke kontakte serveren.";
+    } finally {
+        reserveButton.disabled = selectedSeats.size === 0;
+    }
+});
+
+if (!Number.isInteger(screeningId) || screeningId <= 0) {
+    container.innerHTML = "<p>Ugyldig forestilling.</p>";
+    reservationForm.hidden = true;
+} else {
+    updateSelection();
+    loadSeats();
+}

@@ -10,6 +10,7 @@ import com.example.KinoXP.repository.ScreeningRepo;
 import com.example.KinoXP.repository.ScreenRepo;
 import com.example.KinoXP.repository.SeatRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class SeatService {
         return responses;
     }
 
+    @Transactional
     public void createSeatsForScreen(Long screenId) {
 
         Screen screen = screenRepo.findById(screenId)
