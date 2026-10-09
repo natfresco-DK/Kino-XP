@@ -4,7 +4,7 @@
     <th:block th:replace="~{fragments/head :: common-head}"></th:block>
     <title>Offfentligt program | KinoXP</title>
 </head>
-<body>
+<body class="index-page">
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
@@ -52,7 +52,6 @@
                         <th>Tid</th>
                         <th>Film</th>
                         <th>Sal</th>
-                        <th>Handling</th>
                     </tr>
                     </thead>
                     <tbody id="screeningList">
@@ -64,7 +63,6 @@
 
 </div>
 
-<script th:src="@{/js/sidebar.js}"></script>
-<script th:src="@{/js/KioskSell.js}"></script>
+<script th:src="@{/js/Program.js}"></script>
 </body>
 </html>
