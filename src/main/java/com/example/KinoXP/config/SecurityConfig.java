@@ -23,16 +23,16 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/images/**",
                                 "/error",
-                                "/program"
+                                "/program",
+                                "/screenings",
+                                "/screenings/date/**",
+                                "/screenings/movie/**",
+                                "/api/movies"
                         )
                         .permitAll()
 
                         .requestMatchers(HttpMethod.GET,
-                                "/screenings",
-                                "/screenings/date/**",
-                                "/screenings/movie/**",
                                 "/movies/**",
-                                "/api/movies",
                                 "/api/movies/**"
                                 )
                             .hasAnyRole(UserRole.ADMIN.name(),UserRole.MOVIE_OPERATOR.name())
