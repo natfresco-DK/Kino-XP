@@ -61,6 +61,17 @@ textarea {
     color: var(--accent);
 }
 
+.navbar-right form {
+    margin: 0;
+}
+
+.navbar-right form .navbar-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
 .navbar-divider {
     width: 1px;
     height: 30px;
