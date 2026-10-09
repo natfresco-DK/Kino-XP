@@ -3,7 +3,46 @@
 <body>
 <nav th:fragment="navbar" class="navbar">
   <div class="navbar-left">
-    <img th:src="@{/images/logo.png}" id="navbar-logo" alt="logo">
+    <a href="/program" class="kinoxp-logo" aria-label="KinoXP forsiden">
+      <svg viewBox="0 0 440 112"
+           xmlns="http://www.w3.org/2000/svg"
+           class="logo-svg"
+           role="img"
+           aria-label="KinoXP">
+
+        <g transform="translate(5 12)">
+          <path d="M10 26 L82 5 L96 23 L24 44 Z"
+                fill="#168BFF"/>
+          <path d="M32 29 L46 25 L56 40 L42 44 Z"
+                fill="#0755CF"/>
+          <path d="M62 20 L76 16 L86 31 L72 35 Z"
+                fill="#0755CF"/>
+          <path d="M12 47 Q12 40 20 38 L88 18 Q96 16 98 25 L98 78 Q98 86 90 88 L20 98 Q12 99 12 91 Z"
+                fill="#087BFA"/>
+          <path d="M27 53 L80 38 L80 73 L27 83 Z"
+                fill="#101820"/>
+          <path d="M46 52 L46 73 L65 62 Z"
+                fill="#20B7FF"/>
+        </g>
+
+        <text x="115" y="78"
+              class="logo-text"
+              font-family="Arial, Helvetica, sans-serif"
+              font-size="68"
+              font-weight="800"
+              letter-spacing="-3">Kino</text>
+
+        <text x="266" y="78"
+              class="logo-accent"
+              font-family="Arial, Helvetica, sans-serif"
+              font-size="68"
+              font-weight="800"
+              letter-spacing="-3">XP</text>
+      </svg>
+    </a>
+
+
+
     <div class="navbar-divider"></div>
     <a href="/movies/create" class="navbar-link">Film</a> <!-- Vi kan bruge ' active' på navbar-link for bedre visualisering i fremtiden-->
     <a href="/screenings/create" class="navbar-link">Forestillinger</a>
@@ -14,12 +53,6 @@
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Skift tema">
       ☾
     </button>
-
-    <div class="employee-menu">
-      <span class="employee-icon">♙</span>
-      <span>Medarbejder</span>
-      <span class="dropdown-arrow">⌄</span>
-    </div>
   </div>
 </nav>
 </body>
