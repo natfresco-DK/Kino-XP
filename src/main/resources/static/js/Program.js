@@ -4,6 +4,7 @@ const showAllBtn = document.getElementById("showAllBtn");
 const screeningList = document.getElementById("screeningList");
 const statusMessage = document.getElementById("status");
 const movieStatus = document.getElementById("movieStatus");
+const isIndexPage = document.body.classList.contains("index-page");
 
 let latestRequest = 0;
 
@@ -49,19 +50,18 @@ function renderScreenings(screenings) {
             row.appendChild(cell);
         });
 
-        // Handling
-        const actionCell = document.createElement("td");
+        if (!isIndexPage) {
+            const actionCell = document.createElement("td");
+            const seatsButton = document.createElement("button");
+            seatsButton.textContent = "Se sæder";
 
-        // Se sæder knap
-        const seatsButton = document.createElement("button");
-        seatsButton.textContent = "Se sæder";
+            seatsButton.addEventListener("click", () => {
+                window.location.href = "/screenings/" + screening.id + "/seats/view";
+            });
 
-        seatsButton.addEventListener("click", () => {
-            window.location.href = "/screenings/" + screening.id + "/seats/view";
-        });
-
-        actionCell.appendChild(seatsButton);
-        row.appendChild(actionCell);
+            actionCell.appendChild(seatsButton);
+            row.appendChild(actionCell);
+        }
         screeningList.appendChild(row);
     });
 }
