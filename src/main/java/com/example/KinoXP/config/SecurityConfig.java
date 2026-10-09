@@ -32,14 +32,24 @@ public class SecurityConfig {
                                 "/movies/**",
                                 "/api/movies",
                                 "/api/movies/**"
-                                )
-                            .hasAnyRole(UserRole.ADMIN.name(),UserRole.MOVIE_OPERATOR.name())
+                        )
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
 
                         .requestMatchers(HttpMethod.PUT, "/api/movies/**")
-                            .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.MOVIE_OPERATOR.name())
+
 
                         .requestMatchers("/kiosk/**")
-                            .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
+
+                        .requestMatchers(HttpMethod.GET,
+                                "/screenings/*/seats",
+                                "/screenings/*/seats/view"
+                        )
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
+
+                        .requestMatchers(HttpMethod.POST, "/reservations")
+                        .hasAnyRole(UserRole.ADMIN.name(), UserRole.RESERVATION.name())
 
                         .anyRequest().hasRole(UserRole.ADMIN.name())
                 )
@@ -67,5 +77,4 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

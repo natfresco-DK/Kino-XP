@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <th:block th:replace="~{fragments/head :: common-head}"></th:block>
     <title>Sædeoversigt | KinoXP</title>
 </head>
-
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -15,9 +13,7 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <main class="main-content screening-page seat-page">
-
         <section class="content-section">
-
             <div class="header">
                 <h1>Sædeoversigt</h1>
             </div>
@@ -25,29 +21,40 @@
             <div class="seat-legend">
                 <span>Ledig</span>
                 <div class="seat-example available"></div>
-
+                <span>Valgt</span>
+                <div class="seat-example selected"></div>
                 <span>Reserveret</span>
                 <div class="seat-example reserved"></div>
             </div>
 
-            <div class="screen">
-                LÆRRED
-            </div>
+            <div class="screen">LÆRRED</div>
 
             <div class="seat-map-wrapper">
-                <div id="seat-container">
-                    <!-- Sæderne bliver lavet af seats.js -->
-                </div>
+                <div id="seat-container"></div>
             </div>
 
-        </section>
+            <div class="form-container">
+                <form id="reservationForm">
+                    <p id="selectedSeats">Ingen sæder valgt</p>
 
+                    <div class="form-group">
+                        <label for="phoneNumber">Kundens telefonnummer</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" inputmode="numeric"
+                               pattern="[0-9]{8}" maxlength="8" placeholder="12345678" required>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" id="reserveButton" disabled>Reservér</button>
+                    </div>
+                </form>
+                <p class="message" id="reservationStatus" role="status"></p>
+            </div>
+        </section>
     </main>
 
 </div>
 
 <script th:src="@{/js/sidebar.js}"></script>
 <script th:src="@{/js/seats.js}"></script>
-
 </body>
 </html>

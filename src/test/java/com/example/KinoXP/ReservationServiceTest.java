@@ -9,13 +9,13 @@ import com.example.KinoXP.repository.ReservationRepo;
 import com.example.KinoXP.repository.ScreeningRepo;
 import com.example.KinoXP.repository.SeatRepo;
 import com.example.KinoXP.service.ReservationService;
-import com.example.KinoXP.utils.ScreenType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
@@ -50,8 +50,8 @@ class ReservationServiceTest {
 
     @BeforeEach
     void setUp() {
-        lilleSal = newScreen(1L, "Lille", ScreenType.SMALL);
-        storSal = newScreen(2L, "Stor", ScreenType.LARGE);
+        lilleSal = newScreen(1L, "Lille", 20, 12);
+        storSal = newScreen(2L, "Stor", 25, 16);
 
         upcomingScreening = newScreening(1L, lilleSal, LocalDateTime.now().plusDays(1));
 
@@ -196,9 +196,27 @@ class ReservationServiceTest {
         verify(reservationRepo, never()).saveAllAndFlush(anyList());
     }
 
+    @Test
+    void createReservation_databaseRejectsDuplicate_throwsConflict() {
+        List<Long> seatIds = List.of(1L);
+        when(screeningRepo.findById(1L)).thenReturn(Optional.of(upcomingScreening));
+        when(seatRepo.findAllById(seatIds)).thenReturn(List.of(seatA1));
+        when(reservationRepo.existsByScreeningAndSeatIdIn(upcomingScreening, seatIds)).thenReturn(false);
+        when(reservationRepo.saveAllAndFlush(anyList()))
+                .thenThrow(new DataIntegrityViolationException("duplicate"));
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> reservationService.createReservation(
+                        new CreateReservationRequest(1L, seatIds, "12345678"))
+        );
+
+        assertEquals("Et eller flere af sæderne er allerede reserveret", exception.getMessage());
+    }
+
     private void saveAllReturnsSameList() {
-            when(reservationRepo.saveAllAndFlush(anyList()))
-                    .thenAnswer(invocation -> invocation.getArgument(0));
+        when(reservationRepo.saveAllAndFlush(anyList()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
     }
 
     private void assertBadRequest(CreateReservationRequest request, String expectedMessage) {
@@ -207,11 +225,11 @@ class ReservationServiceTest {
                 () -> reservationService.createReservation(request)
         );
         assertEquals(expectedMessage, exception.getMessage());
-        verify(reservationRepo, never()).saveAllAndFlush(anyList());
+        verify(reservationRepo, never()).saveAllAndFlush(any());
     }
 
-    private Screen newScreen(Long id, String name, ScreenType type) {
-        Screen screen = new Screen(name, type);
+    private Screen newScreen(Long id, String name, int rowCount, int seatsPerRow) {
+        Screen screen = new Screen(name, rowCount, seatsPerRow);
         ReflectionTestUtils.setField(screen, "id", id);
         return screen;
     }

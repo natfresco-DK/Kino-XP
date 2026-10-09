@@ -5,10 +5,21 @@ const reserveButton = document.getElementById("reserveButton");
 const selectedSeatsText = document.getElementById("selectedSeats");
 const reservationStatus = document.getElementById("reservationStatus");
 
+const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+
 const selectedSeats = new Map();
 
 const parts = window.location.pathname.split("/");
 const screeningId = Number(parts[2]);
+
+function jsonHeaders() {
+    const headers = { "Content-Type": "application/json" };
+    if (csrfToken && csrfHeader) {
+        headers[csrfHeader] = csrfToken;
+    }
+    return headers;
+}
 
 async function readErrorMessage(response, fallback) {
     try {
@@ -160,7 +171,7 @@ reservationForm.addEventListener("submit", async event => {
     try {
         const response = await fetch("/reservations", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: jsonHeaders(),
             body: JSON.stringify(request)
         });
 
